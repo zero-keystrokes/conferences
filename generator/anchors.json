@@ -1,0 +1,170 @@
+{
+  "_readme": [
+    "Flagship events worth tracking even when the aggregator feeds miss them.",
+    "'dates' is the curated floor (ISO start/end). The nightly build also scrapes",
+    "'url' and, when the page yields an explicit month-named date range, uses that",
+    "instead and stores the raw matched text in 'dates_evidence' — the page shows",
+    "you exactly which string each date came from.",
+    "A scraped date is only accepted if it parses AND falls on/after today, so a",
+    "stale year in some archive paragraph can never overwrite a real date.",
+    "Set refresh=false for a URL that does not resolve, so runs stay quiet.",
+    "Dates are never guessed: an unknown date is left TBA on purpose."
+  ],
+  "updated": "2026-09-25",
+  "events": [
+    {
+      "name": "Current 2026 — San Francisco (Confluent)",
+      "url": "https://current.confluent.io/",
+      "dates": "2026-11-04/2026-11-05",
+      "dates_evidence": "November 4-5, 2026",
+      "city": "San Francisco",
+      "country": "USA",
+      "verified": true,
+      "cfp_url": "",
+      "cfp_note": "Confluent's flagship data-streaming event and the successor to Kafka Summit. Speaker submissions run ahead of each edition — watch the site for the open call. The London edition ran May 19-20, 2026.",
+      "description": "Apache Kafka and data streaming, from the people who maintain Kafka."
+    },
+    {
+      "name": "AWS re:Invent 2026",
+      "url": "https://reinvent.awsevents.com/",
+      "dates": "2026-11-30/2026-12-04",
+      "dates_evidence": "Nov 30-Dec 4, Las Vegas",
+      "city": "Las Vegas",
+      "country": "USA",
+      "verified": true,
+      "cfp_url": "",
+      "cfp_note": "No general open CFP. Most breakouts are invited or customer-submitted through the AWS Community/Partner call, announced on the site — worth watching if you want a session.",
+      "description": "AWS's flagship cloud and AI conference, with a large streaming/analytics track."
+    },
+    {
+      "name": "Community Over Code 2026 (Apache Software Foundation)",
+      "url": "https://communityovercode.org/",
+      "dates": "2026-10-11/2026-10-14",
+      "dates_evidence": "October 11-14, 2026",
+      "city": "",
+      "country": "",
+      "verified": true,
+      "cfp_url": "",
+      "cfp_note": "The ASF's annual conference — home to the Kafka, Flink, Iceberg, Pulsar and Airflow project communities. Runs an open CFP each year; the 2026 call has closed.",
+      "description": "The Apache Software Foundation community conference."
+    },
+    {
+      "name": "QCon — qconferences series",
+      "url": "https://qconferences.com/",
+      "dates": "2026-11-16/2026-11-20",
+      "dates_evidence": "Nov 16-20, 2026",
+      "city": "",
+      "country": "",
+      "verified": true,
+      "cfp_url": "",
+      "cfp_note": "Practitioner conference with consistently strong data/streaming architecture tracks. Each edition runs its own call for speakers, typically ~4 months ahead.",
+      "description": "Software architecture conference series with heavy data-engineering content."
+    },
+    {
+      "name": "Databricks Data + AI Summit 2027",
+      "url": "https://www.databricks.com/dataaisummit",
+      "dates": "2027-06-21/2027-06-24",
+      "dates_evidence": "June 21-24, 2027",
+      "city": "San Francisco",
+      "country": "USA",
+      "verified": true,
+      "cfp_url": "",
+      "cfp_note": "Runs an open Call for Proposals a few months before the event — watch the site for the submission window.",
+      "description": "Databricks' flagship data, analytics and AI conference (Delta Lake / lakehouse)."
+    },
+    {
+      "name": "Data Council 2027",
+      "url": "https://www.datacouncil.ai/",
+      "dates": "2027-03-23/2027-03-24",
+      "dates_evidence": "March 23-24, 2027",
+      "city": "",
+      "country": "",
+      "verified": true,
+      "cfp_url": "https://www.datacouncil.ai/speak",
+      "cfp_note": "Independent, deeply technical data conference — the closest thing to a pure data-engineering community event. Runs an open call for speakers.",
+      "description": "Independent data engineering and data infrastructure conference."
+    },
+    {
+      "name": "Google Cloud Next 2027",
+      "url": "https://cloud.withgoogle.com/next",
+      "dates": "2027-04-13/2027-04-15",
+      "dates_evidence": "April 13-15, 2027",
+      "city": "",
+      "country": "",
+      "verified": true,
+      "cfp_url": "",
+      "cfp_note": "Sessions are largely curated by Google; the community/partner speaker call is announced on the site.",
+      "description": "Google Cloud's flagship conference, including Dataflow/Pub-Sub streaming tracks."
+    },
+    {
+      "name": "dbt Coalesce 2027",
+      "url": "https://coalesce.getdbt.com/",
+      "dates": "2027-09-13/2027-09-16",
+      "dates_evidence": "Sept 13-16, 2027",
+      "city": "",
+      "country": "",
+      "verified": true,
+      "cfp_url": "",
+      "cfp_note": "The analytics-engineering community conference; runs an open call for speakers in the spring.",
+      "description": "dbt's analytics engineering conference."
+    },
+    {
+      "name": "Snowflake Summit",
+      "url": "https://www.snowflake.com/en/summit/",
+      "dates": "",
+      "city": "",
+      "country": "",
+      "verified": false,
+      "cfp_url": "",
+      "cfp_note": "Next edition's dates were not published on the page at build time — check back. Snowflake announces the agenda and any speaker call separately.",
+      "description": "Snowflake's annual data cloud conference."
+    },
+    {
+      "name": "P99 CONF",
+      "url": "https://www.p99conf.io/",
+      "dates": "",
+      "city": "",
+      "country": "",
+      "online": true,
+      "verified": false,
+      "cfp_url": "",
+      "cfp_note": "Free online conference on high-performance / low-latency systems — very relevant to streaming internals. Dates not confirmed at build time.",
+      "description": "Online conference about performance, concurrency and low-latency systems."
+    },
+    {
+      "name": "Apache Iceberg Summit",
+      "url": "https://icebergsummit.com/",
+      "dates": "",
+      "refresh": false,
+      "city": "",
+      "country": "",
+      "verified": false,
+      "cfp_url": "",
+      "cfp_note": "Next edition's dates are not published. The icebergsummit.com host did not resolve at build time — check the Apache Iceberg community channels.",
+      "description": "Community summit for the Apache Iceberg open table format."
+    },
+    {
+      "name": "Flink Forward",
+      "url": "https://www.flink-forward.org/",
+      "dates": "",
+      "city": "Barcelona",
+      "country": "Spain",
+      "verified": false,
+      "cfp_url": "",
+      "cfp_note": "The site still advertises the Barcelona 2025 edition (Oct 13-16, 2025); no 2026 dates or CFP are published yet. Flink Forward traditionally opens its call for speakers roughly 4 months ahead.",
+      "description": "The Apache Flink community conference."
+    },
+    {
+      "name": "Kafka Summit",
+      "url": "https://kafka-summit.org/",
+      "dates": "",
+      "refresh": false,
+      "city": "",
+      "country": "",
+      "verified": false,
+      "cfp_url": "",
+      "cfp_note": "Kafka Summit has been folded into Confluent's Current conference — track 'Current' above for the Kafka community's main event. This site is archived.",
+      "description": "Legacy Kafka community summit, now merged into Confluent Current."
+    }
+  ]
+}

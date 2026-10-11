@@ -1,0 +1,6 @@
+# scratch / local-only
+raw-cache.json
+__pycache__/
+*.pyc
+.DS_Store
+.venv/

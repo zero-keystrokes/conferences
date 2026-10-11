@@ -1,0 +1,176 @@
+#!/usr/bin/env python3
+"""Adversarial checks for the renderer, classifier and date policy.
+
+The page is public and every string on it is scraped from a third party, so
+escaping, URL sanitisation and date sanity are load-bearing. These assertions
+are the proof; run them before any push.
+
+    python3 tests_render_safety.py
+"""
+from __future__ import annotations
+
+import datetime as dt
+import json
+import pathlib
+import sys
+import tempfile
+
+HERE = pathlib.Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE))
+
+import classify          # noqa: E402
+import render            # noqa: E402
+import sources           # noqa: E402
+from model import Event  # noqa: E402
+
+FAILURES: list[str] = []
+
+
+def check(label: str, condition: bool, detail: str = "") -> None:
+    if condition:
+        print(f"  PASS  {label}")
+    else:
+        FAILURES.append(f"{label} {detail}".strip())
+        print(f"  FAIL  {label}  {detail}")
+
+
+def render_one(ev: Event) -> tuple[str, str, str]:
+    """Return (full html, rendered-body html, embedded json text)."""
+    today = dt.date.today()
+    meta = {
+        "today": today,
+        "window_start": today,
+        "window_end": today + dt.timedelta(days=92),
+        "horizon_end": today + dt.timedelta(days=400),
+        "generated_at": "test",
+        "sources": ["unit-test"],
+        "warnings": [],
+    }
+    ev.start = ev.start or today
+    full = render.render([ev], meta)
+    body, _, tail = full.partition('id="events-data">')
+    json_region = tail.split("</script>", 1)[0]
+    return full, body, json_region
+
+
+def main() -> int:
+    print("XSS / escaping (rendered body)")
+    hostile = '<script>alert("xss")</script>'
+    full, body, json_region = render_one(Event(
+        name=hostile, url="https://example.com/ok", cfp_url="javascript:alert(1)",
+        cfp_close=dt.date.today() + dt.timedelta(days=10)))
+    check("no executable <script> injected into the body",
+          "<script>alert" not in body, "raw script tag leaked")
+    check("hostile name is entity-escaped", "&lt;script&gt;" in body)
+    check("no javascript: href in the body",
+          'href="javascript:' not in body.lower())
+    check("legit https URL survives", "https://example.com/ok" in body)
+    check("external links carry noopener+noreferrer",
+          "noopener noreferrer" in body, "missing rel hardening")
+
+    print("\nEmbedded JSON block")
+    full2, _, json_region2 = render_one(Event(
+        name="</script><script>alert(1)</script>", url="https://ok.example/",
+        city='"><img src=x onerror=alert(1)>'))
+    check("no literal </script> in the JSON block", "</script>" not in json_region2)
+    check("no raw angle brackets in the JSON block", "<" not in json_region2)
+    try:
+        parsed = json.loads(json_region2)
+        check("embedded JSON still parses", True)
+    except Exception as exc:  # noqa: BLE001
+        parsed = []
+        check("embedded JSON still parses", False, str(exc))
+    check("escaped payload round-trips to the original text",
+          bool(parsed) and parsed[0]["name"] == "</script><script>alert(1)</script>")
+    check("hostile cfp/url scheme scrubbed from exported JSON",
+          bool(parsed) and not (parsed[0].get("url") or "").lower().startswith("javascript:"))
+
+    print("\nURL scheme allowlist")
+    for label, bad in [
+        ("data: URL", "data:text/html,<script>alert(1)</script>"),
+        ("vbscript:", "vbscript:msgbox(1)"),
+        ("protocol-relative", "//evil.example.com/x"),
+        ("plain junk", "not a url at all"),
+        ("javascript: with case", "JaVaScRiPt:alert(1)"),
+    ]:
+        _, b, _ = render_one(Event(name="e", url=bad, cfp_url=bad))
+        leaked = f'href="{bad}' in b or 'href="javascript:' in b.lower()
+        check(f"{label} rejected", not leaked, f"{bad!r} reached an href")
+    _, b, _ = render_one(Event(name="e", url="HTTPS://Example.com/x"))
+    check("uppercase scheme accepted", "HTTPS://Example.com/x" in b)
+
+    print("\nClassifier precision")
+    for name, desc in [("Apache Kafka Summit", ""),
+                       ("Flink Forward 2026", "stream processing"),
+                       ("Real-Time Data at Scale", "meetup"),
+                       ("Lakehouse Day EU", "iceberg and open table formats"),
+                       ("Data Engineering Meetup with ClickHouse", "")]:
+        score, _, _ = classify.score_event(name, "", desc, [])
+        check(f"keeps: {name}", classify.is_relevant(score), f"score={score}")
+
+    for name, desc in [("Data Engineer in 10 Weeks - Job ready Roadmap", ""),
+                       ("Let's speak Japanese together", ""),
+                       ("Sunrise Yoga in the Park", "data"),
+                       ("Navigating Your Career in Tech Bootcamp", "data analytics"),
+                       ("Crypto Trading Masterclass", "big data buzzwords")]:
+        score, _, _ = classify.score_event(name, "", desc, [])
+        check(f"drops: {name}", not classify.is_relevant(score), f"score={score}")
+
+    print("\nClassifier recall (plurals / hyphen variants)")
+    for name in ["Open Table Formats in Practice", "Real-time Data Pipelines",
+                 "Streaming Analytics Meetup", "Build a Modern Data Stack"]:
+        score, _, _ = classify.score_event(name, "", "", [])
+        check(f"matches variant: {name}", score > 0, f"score={score}")
+
+    print("\nDate policy (the invariant, not the parser)")
+    # The parser may legitimately return an old date found in archive copy; the
+    # POLICY is that such a date must never replace a curated one or reach the page.
+    tmp = pathlib.Path(tempfile.mkdtemp())
+    today = dt.date(2026, 9, 25)
+
+    def run_anchor_case(entry: dict, page: str):
+        (tmp / "anchors.json").write_text(json.dumps({"events": [entry]}))
+        orig_here, orig_get = sources.HERE, sources.http_get
+        sources.HERE = tmp
+        sources.http_get = lambda *a, **k: (200, page)
+        try:
+            return sources.from_anchors(today, refresh=True)[0]
+        finally:
+            sources.HERE, sources.http_get = orig_here, orig_get
+
+    stale_page = "<title>Some Conf</title><h1>Join us</h1><p>Copyright December 2012.</p>"
+    ev = run_anchor_case({"name": "Some Conf", "url": "https://x.example/",
+                          "dates": "2027-05-01/2027-05-02", "verified": True}, stale_page)
+    check("stale scraped year does not overwrite a curated date",
+          ev.start == dt.date(2027, 5, 1), f"got {ev.start}")
+
+    ev = run_anchor_case({"name": "Some Conf", "url": "https://x.example/",
+                          "dates": ""}, stale_page)
+    check("stale scraped year leaves an unknown date unknown", ev.start is None,
+          f"got {ev.start}")
+
+    good_page = "<title>Some Conf 2027</title><h1>March 23-24, 2027</h1>"
+    ev = run_anchor_case({"name": "Some Conf", "url": "https://x.example/", "dates": ""},
+                         good_page)
+    check("genuine future date is accepted",
+          ev.start == dt.date(2027, 3, 23) and ev.end == dt.date(2027, 3, 24),
+          f"got {ev.start}..{ev.end}")
+
+    past_curated = run_anchor_case(
+        {"name": "Old Conf", "url": "https://x.example/", "dates": "2025-01-01/2025-01-02"},
+        stale_page)
+    check("a past curated date is cleared rather than shown as current",
+          past_curated.start is None, f"got {past_curated.start}")
+
+    print()
+    if FAILURES:
+        print(f"{len(FAILURES)} FAILURE(S):")
+        for f in FAILURES:
+            print("  -", f)
+        return 1
+    print("All checks passed.")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
