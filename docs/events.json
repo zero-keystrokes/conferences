@@ -1,41 +1,10 @@
 {
-  "generated_at": "2026-10-10 18:48",
-  "window_start": "2026-10-10",
-  "window_end": "2027-01-10",
-  "count": 26,
+  "generated_at": "2026-10-11 03:15",
+  "window_start": "2026-10-11",
+  "window_end": "2027-01-11",
+  "count": 25,
   "warnings": [],
   "events": [
-    {
-      "name": "Lakehouse Day EU 2026",
-      "url": "https://communityovercode.org/lakehouse-day/",
-      "start": "2026-10-10",
-      "end": null,
-      "city": "Glasgow",
-      "country": "UK",
-      "online": false,
-      "kind": "conference",
-      "source": "developers.events",
-      "source_url": "https://developers.events/",
-      "cfp_url": "https://sessionize.com/lakehouse-day-2026",
-      "cfp_close": "2026-03-20",
-      "cfp_open": null,
-      "cfp_note": "",
-      "description": "",
-      "tags": [
-        "Lakehouse & Table Formats"
-      ],
-      "score": 12.0,
-      "matched": [
-        "lakehouse"
-      ],
-      "verified": false,
-      "anchor": false,
-      "location": "Glasgow, UK",
-      "date_label": "Oct 10, 2026",
-      "cfp_days_left": -204,
-      "cfp_state": "closed",
-      "id": "d74bd89b76c66b18"
-    },
     {
       "name": "Community Over Code 2026 (Apache Software Foundation)",
       "url": "https://communityovercode.org/",
@@ -160,7 +129,7 @@
       "anchor": false,
       "location": "Johannesburg, South Africa",
       "date_label": "Oct 31, 2026",
-      "cfp_days_left": -10,
+      "cfp_days_left": -11,
       "cfp_state": "closed",
       "id": "f5c94978453eb481"
     },
@@ -285,7 +254,7 @@
       "anchor": false,
       "location": "Budapest, Hungary",
       "date_label": "Nov 16\u201318, 2026",
-      "cfp_days_left": -160,
+      "cfp_days_left": -161,
       "cfp_state": "closed",
       "id": "d701a608fe6c73b5"
     },
@@ -379,7 +348,7 @@
       "anchor": false,
       "location": "Vilnius, Lithuania",
       "date_label": "Nov 24\u201327, 2026",
-      "cfp_days_left": 44,
+      "cfp_days_left": 43,
       "cfp_state": "open",
       "id": "5c70286b9661b7ea"
     },
@@ -439,7 +408,7 @@
       "anchor": false,
       "location": "Online, Online",
       "date_label": "Dec 1, 2026",
-      "cfp_days_left": 82,
+      "cfp_days_left": 81,
       "cfp_state": "open",
       "id": "6345b6b291f66e55"
     },
@@ -470,7 +439,7 @@
       "anchor": false,
       "location": "Houston, TX, USA",
       "date_label": "Dec 4\u20135, 2026",
-      "cfp_days_left": -6,
+      "cfp_days_left": -7,
       "cfp_state": "closed",
       "id": "34d62335456f7920"
     },
@@ -501,7 +470,7 @@
       "anchor": false,
       "location": "Online, Online",
       "date_label": "Dec 11\u201312, 2026",
-      "cfp_days_left": 21,
+      "cfp_days_left": 20,
       "cfp_state": "open",
       "id": "87701bd88e37cb15"
     },
@@ -561,7 +530,7 @@
       "anchor": false,
       "location": "Redwood Shores, CA, USA",
       "date_label": "Apr 13\u201315, 2027",
-      "cfp_days_left": 28,
+      "cfp_days_left": 27,
       "cfp_state": "open",
       "id": "4089336412fcd149"
     },
