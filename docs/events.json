@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-10-10 18:47",
+  "generated_at": "2026-10-10 18:48",
   "window_start": "2026-10-10",
   "window_end": "2027-01-10",
-  "count": 27,
+  "count": 26,
   "warnings": [],
   "events": [
     {
@@ -173,7 +173,7 @@
       "country": "USA",
       "online": false,
       "kind": "conference",
-      "source": "conference-data + conference-data + developers.events",
+      "source": "conference-data + developers.events + meetup",
       "source_url": "https://developers.events/",
       "cfp_url": "",
       "cfp_close": null,
@@ -196,38 +196,6 @@
       "cfp_days_left": null,
       "cfp_state": "unknown",
       "id": "25f39e9a46223528"
-    },
-    {
-      "name": "OSA CON 2026: The Anti-Hype Conference for Open Source Analytics and AI",
-      "url": "https://www.meetup.com/san-francisco-bay-area-clickhouse-meetup/events/316657334/",
-      "start": "2026-11-02",
-      "end": null,
-      "city": "",
-      "country": "",
-      "online": false,
-      "kind": "meetup",
-      "source": "meetup",
-      "source_url": "https://www.meetup.com/find/",
-      "cfp_url": "",
-      "cfp_close": null,
-      "cfp_open": null,
-      "cfp_note": "",
-      "description": "",
-      "tags": [
-        "Analytics & Warehousing"
-      ],
-      "score": 6.0,
-      "matched": [
-        "analytics",
-        "clickhouse"
-      ],
-      "verified": false,
-      "anchor": false,
-      "location": "Location TBA",
-      "date_label": "Nov 2, 2026",
-      "cfp_days_left": null,
-      "cfp_state": "unknown",
-      "id": "f67b2f00b64ce12b"
     },
     {
       "name": "Snowflake Expedition 2026: Embark on Your Agentic Transformation",

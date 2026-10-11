@@ -190,6 +190,51 @@ def _richness(e: Event) -> int:
     return r
 
 
+# Words that carry no identity — two events sharing only these are not the same
+# event. Domain terms like "data" and "kafka" are deliberately kept.
+_GENERIC_TOKENS = {
+    "the", "a", "an", "and", "of", "for", "with", "from", "into", "on", "in",
+    "at", "to", "by", "is", "are", "your", "our",
+    "conference", "conf", "summit", "meetup", "workshop", "event", "events",
+    "series", "expo", "forum", "day", "days", "annual", "edition", "virtual",
+    "online", "live", "session", "sessions", "talk", "talks",
+}
+
+
+def _sig_tokens(name: str) -> set:
+    """Significant words in an event name, for cross-source identity matching."""
+    n = re.sub(r"[^a-z0-9 ]+", " ", (name or "").lower())
+    return {t for t in n.split()
+            if len(t) >= 3
+            and t not in _GENERIC_TOKENS
+            and not re.fullmatch(r"(19|20)\d\d", t)}
+
+
+def _absorb(best: "Event", other: "Event") -> "Event":
+    """Union a runner-up record into the winner: fill blanks, merge tags/sources."""
+    best.url = best.url or other.url
+    best.city = best.city or other.city
+    best.country = best.country or other.country
+    best.start = best.start or other.start
+    best.end = best.end or other.end
+    best.cfp_url = best.cfp_url or other.cfp_url
+    best.cfp_close = best.cfp_close or other.cfp_close
+    best.cfp_open = best.cfp_open or other.cfp_open
+    best.cfp_note = best.cfp_note or other.cfp_note
+    best.description = best.description or other.description
+    best.verified = best.verified or other.verified
+    best.anchor = best.anchor or other.anchor
+    # Split first: `best.source` may already be "A + B", and set-unioning the
+    # joined string would emit "A + B + A" style duplicates.
+    names = {s.strip() for s in best.source.split("+") if s.strip()}
+    names.update(s.strip() for s in other.source.split("+") if s.strip())
+    best.source = " + ".join(sorted(names))
+    for t in other.tags:
+        if t not in best.tags:
+            best.tags.append(t)
+    return best
+
+
 def merge_events(events: list) -> list:
     """Collapse duplicates, keeping the richest record and unioning tags."""
     buckets: dict[str, list] = {}
@@ -203,23 +248,27 @@ def merge_events(events: list) -> list:
         group.sort(key=_richness, reverse=True)
         best = group[0]
         for other in group[1:]:
-            # fill blanks from the runner-ups
-            best.url = best.url or other.url
-            best.city = best.city or other.city
-            best.country = best.country or other.country
-            best.start = best.start or other.start
-            best.end = best.end or other.end
-            best.cfp_url = best.cfp_url or other.cfp_url
-            best.cfp_close = best.cfp_close or other.cfp_close
-            best.cfp_open = best.cfp_open or other.cfp_open
-            best.cfp_note = best.cfp_note or other.cfp_note
-            best.description = best.description or other.description
-            best.verified = best.verified or other.verified
-            best.anchor = best.anchor or other.anchor
-            if best.source != other.source:
-                best.source = " + ".join(sorted({best.source, other.source}))
-            for t in other.tags:
-                if t not in best.tags:
-                    best.tags.append(t)
+            _absorb(best, other)
         merged.append(best)
-    return merged
+
+    # Second pass. The same event reaches us under different names — "OSA CON
+    # 2026: The Anti-Hype Conference for Open Source Analytics" and "Open Source
+    # Analytics Conference" share no dedupe key. Sharing a start date plus two
+    # or more significant name tokens is a reliable cross-source signal; both
+    # conditions are required so distinct events on a busy day stay separate.
+    out: list = []
+    for e in sorted(merged, key=_richness, reverse=True):
+        if not e.start:
+            out.append(e)
+            continue
+        tokens = _sig_tokens(e.name)
+        hit = None
+        for cand in out:
+            if cand.start and cand.start == e.start and len(tokens & _sig_tokens(cand.name)) >= 2:
+                hit = cand
+                break
+        if hit is None:
+            out.append(e)
+        else:
+            _absorb(hit, e)
+    return out

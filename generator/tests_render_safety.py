@@ -162,6 +162,31 @@ def main() -> int:
     check("a past curated date is cleared rather than shown as current",
           past_curated.start is None, f"got {past_curated.start}")
 
+    print("\nDedupe / merge")
+    from model import merge_events
+    d11 = dt.date(2026, 11, 2)
+    a = Event(name="Open Source Analytics Conference", url="https://osacon.io/",
+              start=d11, city="San Francisco, CA", source="conference-data")
+    b = Event(name="OSA CON 2026: The Anti-Hype Conference for Open Source Analytics",
+              url="https://www.meetup.com/x/events/1/", start=d11, source="meetup")
+    m = merge_events([a, b])
+    check("same event under different names collapses", len(m) == 1, f"got {len(m)}")
+    check("richer record wins the url", m and m[0].url == "https://osacon.io/")
+    check("city was filled in from the merged record", m and m[0].city == "San Francisco, CA")
+    check("source labels union cleanly", m and m[0].source == "conference-data + meetup",
+          f"got {m[0].source!r}" if m else "")
+
+    check("distinct same-day events are NOT merged",
+          len(merge_events([Event(name="Kafka Summit", url="https://k.example/", start=d11),
+                            Event(name="Flink Forward", url="https://f.example/", start=d11)])) == 2)
+
+    same = [Event(name="Big Data Conf", source=s, start=dt.date(2027, 1, 1))
+            for s in ("conference-data", "developers.events", "meetup")]
+    mm = merge_events(same)
+    check("three-way merge yields one record", len(mm) == 1, f"got {len(mm)}")
+    check("no duplicated source label",
+          mm and mm[0].source.count("conference-data") == 1, f"got {mm[0].source!r}" if mm else "")
+
     print()
     if FAILURES:
         print(f"{len(FAILURES)} FAILURE(S):")
