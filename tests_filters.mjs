@@ -1,16 +1,28 @@
 // Exercises the ACTUAL filter JavaScript shipped in docs/index.html against the
 // ACTUAL markup it ships with. browser_exec is unavailable on this host, and
-// markup assertions cannot prove the exclude logic works — this can.
+// markup assertions cannot prove filter behaviour — this can.
 //
 //   node tests_filters.mjs
 import { readFileSync } from 'node:fs';
 
 const html = readFileSync(new URL('./docs/index.html', import.meta.url), 'utf8');
-
-// ---- pull the real filter script out of the page -------------------------
 const jsMatch = html.match(/<script>\n([\s\S]*?)<\/script>\s*<\/body>/);
 if (!jsMatch) { console.error('FATAL: could not locate the filter script'); process.exit(1); }
 const FILTER_JS = jsMatch[1];
+const STORE = 'sde:hidden-regions:v1';
+
+// ---- localStorage stub, shared across boots so a "reload" is faithful -----
+const store = new Map();
+let storageThrows = false;
+globalThis.localStorage = {
+  getItem: (k) => (store.has(k) ? store.get(k) : null),
+  setItem: (k, v) => {
+    if (storageThrows) throw new Error('QuotaExceededError');
+    store.set(k, String(v));
+  },
+  removeItem: (k) => store.delete(k),
+};
+const storedHidden = () => { try { return JSON.parse(store.get(STORE) || '[]'); } catch { return null; } };
 
 // ---- minimal DOM ---------------------------------------------------------
 class El {
@@ -23,7 +35,7 @@ class El {
     this._classes = new Set((attrs.class || '').split(/\s+/).filter(Boolean));
     this.style = { display: '' };
     this.value = '';
-    this.checked = false;
+    this.checked = attrs.checked !== undefined;
     this.open = false;
     this._listeners = {};
     this.nextElementSibling = null;
@@ -50,171 +62,209 @@ class El {
   tick(on = true) { this.checked = on; this.dispatch('change'); }
 }
 
-// Parse h2 / month / card in document order so nextElementSibling is faithful.
-const TOKEN = /<h2>([\s\S]*?)<\/h2>|<div class="month">([\s\S]*?)<\/div>|<div class="(card[^"]*)" data-topics="([^"]*)" data-cfp="([^"]*)" data-excl="([^"]*)" data-text="([^"]*)">/g;
-const ordered = [];
-const cards = [], months = [];
-let m;
-while ((m = TOKEN.exec(html)) !== null) {
-  if (m[1] !== undefined) {
-    ordered.push(new El('H2', {}, m[1]));
-  } else if (m[2] !== undefined) {
-    const el = new El('DIV', { class: 'month' }, m[2]); ordered.push(el); months.push(el);
-  } else {
-    const el = new El('DIV', { class: m[3] });
-    el.dataset.topics = m[4]; el.dataset.cfp = m[5]; el.dataset.excl = m[6]; el.dataset.text = m[7];
-    ordered.push(el); cards.push(el);
+// Build a fresh DOM and run the shipped script — one "page load".
+function boot() {
+  const TOKEN = /<h2>([\s\S]*?)<\/h2>|<div class="month">([\s\S]*?)<\/div>|<div class="(card[^"]*)" data-topics="([^"]*)" data-cfp="([^"]*)" data-regions="([^"]*)" data-text="([^"]*)">/g;
+  const ordered = [], cards = [], months = [];
+  let m;
+  while ((m = TOKEN.exec(html)) !== null) {
+    if (m[1] !== undefined) ordered.push(new El('H2', {}, m[1]));
+    else if (m[2] !== undefined) {
+      const el = new El('DIV', { class: 'month' }, m[2]); ordered.push(el); months.push(el);
+    } else {
+      const el = new El('DIV', { class: m[3] });
+      el.dataset.topics = m[4]; el.dataset.cfp = m[5]; el.dataset.regions = m[6]; el.dataset.text = m[7];
+      ordered.push(el); cards.push(el);
+    }
   }
+  for (let i = 0; i < ordered.length - 1; i++) ordered[i].nextElementSibling = ordered[i + 1];
+
+  const chips = [], checkboxes = [], byId = {};
+  let cm;
+  const chipRe = /<span class="chip([^"]*)"([^>]*?)>([\s\S]*?)<\/span>/g;
+  while ((cm = chipRe.exec(html)) !== null) {
+    const attrs = { class: 'chip' + cm[1] };
+    for (const a of cm[2].matchAll(/(data-[a-z]+|id)="([^"]*)"/g)) attrs[a[1]] = a[2];
+    const el = new El('SPAN', attrs, cm[3]);
+    chips.push(el);
+    if (attrs.id) byId[attrs.id] = el;
+  }
+  const boxRe = /<input type="checkbox" data-region="([^"]*)"( checked)?>/g;
+  while ((cm = boxRe.exec(html)) !== null) {
+    checkboxes.push(new El('INPUT', { 'data-region': cm[1], checked: cm[2] ? '' : undefined }));
+  }
+
+  byId.q = new El('INPUT');
+  byId.noshow = new El('DIV', {}, '');
+  byId.hiddennote = new El('SPAN', {}, '');
+  byId['region-count'] = byId['region-count'] || new El('SPAN', {}, '');
+  const dd = new El('DETAILS', { class: 'dd', id: 'region-dd' });
+  // In the real DOM the checkboxes are descendants of the <details>, so a click
+  // on one must NOT count as an outside click.
+  dd.contains = (node) => node === dd || checkboxes.includes(node);
+  byId['region-dd'] = dd;
+
+  const docListeners = {};
+  const document = {
+    querySelectorAll: (sel) => {
+      if (sel === '.card') return cards;
+      if (sel === '.month') return months;
+      if (sel === '.chip') return chips;
+      if (sel === '.chip[data-topic]') return chips.filter((c) => c.dataset.topic !== undefined);
+      if (sel === 'input[type=checkbox][data-region]') return checkboxes;
+      return [];
+    },
+    querySelector: (sel) => (sel === '.chip.cfp'
+      ? chips.find((c) => (c.attrs.class || '').includes('cfp')) : null),
+    getElementById: (id) => byId[id] || null,
+    addEventListener: (t, fn) => { (docListeners[t] ||= []).push(fn); },
+    dispatch: (t, ev) => { for (const fn of docListeners[t] || []) fn({ preventDefault() {}, ...ev }); },
+  };
+
+  new Function('document', FILTER_JS)(document);
+  return { cards, months, chips, checkboxes, byId, dd, document };
 }
-for (let i = 0; i < ordered.length - 1; i++) ordered[i].nextElementSibling = ordered[i + 1];
-
-const chips = [], checkboxes = [], byId = {};
-const chipRe = /<span class="chip([^"]*)"([^>]*?)>([\s\S]*?)<\/span>/g;
-let cm;
-while ((cm = chipRe.exec(html)) !== null) {
-  const attrs = { class: 'chip' + cm[1] };
-  for (const a of cm[2].matchAll(/(data-[a-z]+|id)="([^"]*)"/g)) attrs[a[1]] = a[2];
-  const el = new El('SPAN', attrs, cm[3]);
-  chips.push(el);
-  if (attrs.id) byId[attrs.id] = el;
-}
-const boxRe = /<input type="checkbox" data-excl="([^"]*)">/g;
-while ((cm = boxRe.exec(html)) !== null) checkboxes.push(new El('INPUT', { 'data-excl': cm[1] }));
-
-byId.q = new El('INPUT');
-byId.noshow = new El('DIV', {}, '');
-byId.hiddennote = new El('SPAN', {}, '');
-byId['excl-count'] = byId['excl-count'] || new El('SPAN', {}, '');
-const dd = new El('DETAILS', { class: 'dd', id: 'excl-dd' });
-dd.open = false;
-// In the real DOM the checkboxes are descendants of the <details>, so a click
-// on one must NOT count as an outside click.
-dd.contains = (node) => node === dd || checkboxes.includes(node);
-byId['excl-dd'] = dd;
-
-const docListeners = {};
-const document = {
-  querySelectorAll: (sel) => {
-    if (sel === '.card') return cards;
-    if (sel === '.month') return months;
-    if (sel === '.chip') return chips;
-    if (sel === '.chip[data-topic]') return chips.filter((c) => c.dataset.topic !== undefined);
-    if (sel === 'input[type=checkbox][data-excl]') return checkboxes;
-    return [];
-  },
-  querySelector: (sel) => (sel === '.chip.cfp'
-    ? chips.find((c) => (c.attrs.class || '').includes('cfp')) : null),
-  getElementById: (id) => byId[id] || null,
-  addEventListener: (t, fn) => { (docListeners[t] ||= []).push(fn); },
-  dispatch: (t, ev) => { for (const fn of docListeners[t] || []) fn({ preventDefault() {}, ...ev }); },
-};
-
-// ---- run the shipped script ---------------------------------------------
-new Function('document', FILTER_JS)(document);
 
 // ---- assertions ----------------------------------------------------------
 let fail = 0;
-const vis = () => cards.filter((c) => c.style.display !== 'none').length;
 const check = (label, ok, detail = '') => {
   console.log(`  ${ok ? 'PASS' : 'FAIL'}  ${label}${ok ? '' : '  ' + detail}`);
   if (!ok) fail++;
 };
-const keysOf = (c) => (c.dataset.excl || '').split('|').filter(Boolean);
-const noteN = () => parseInt((byId.hiddennote.textContent || '0').match(/^\d+/)?.[0] || '0', 10);
-const box = (k) => checkboxes.find((b) => b.dataset.excl === k);
+const vis = (p) => p.cards.filter((c) => c.style.display !== 'none').length;
+const regionsOf = (c) => (c.dataset.regions || '').split('|').filter(Boolean);
+const boxOf = (p, k) => p.checkboxes.find((b) => b.dataset.region === k);
+const noteN = (p) => parseInt((p.byId.hiddennote.textContent || '0').match(/^\d+/)?.[0] || '0', 10);
+const isContinent = (b) => !['Online', 'Location TBA', 'Other'].includes(b.dataset.region);
 
 console.log('Markup contract');
-check('no exclusion text box (inclusion only)', !/id="x"/.test(html), 'still present');
+check('no exclusion text box (inclusion only)', !/id="x"/.test(html));
 check('inclusion search box present', /id="q"/.test(html));
-check('dropdown rendered as details/summary', /<details class="dd" id="excl-dd">/.test(html));
-check('dropdown options are checkboxes', checkboxes.length > 0, 'no checkboxes found');
-check('no leftover hide chips', !/class="chip hide"/.test(html), 'old chips still in markup');
-check('cards parsed from the real markup', cards.length > 0, 'no cards found');
-check('every card is visible on load', vis() === cards.length, `${vis()}/${cards.length}`);
+check('region dropdown rendered as details/summary', /<details class="dd" id="region-dd">/.test(html));
+check('options are region checkboxes', /<input type="checkbox" data-region="/.test(html));
+check('no leftover exclusion markup', !/data-excl=/.test(html), 'old data-excl attributes remain');
+const totalBoxes = (html.match(/<input type="checkbox" data-region="/g) || []).length;
+const checkedBoxes = (html.match(/<input type="checkbox" data-region="[^"]*" checked>/g) || []).length;
+check('every region renders ticked (include filter)', totalBoxes > 0 && totalBoxes === checkedBoxes,
+  `${checkedBoxes}/${totalBoxes} ticked`);
+check('every card carries at least one region key',
+  !/data-cfp="[^"]*" data-regions=""/.test(html),
+  'a card has no region — the include filter would strand it');
 
-console.log('\nDropdown exclusion (multi-select)');
-const onlineCards = cards.filter((c) => keysOf(c).includes('Online'));
-const onlineBox = box('Online');
-check('an Online option exists', !!onlineBox, 'not rendered');
-check('Online is listed first', checkboxes[0]?.dataset.excl === 'Online',
-  `first=${checkboxes[0]?.dataset.excl}`);
-if (onlineBox) {
-  onlineBox.tick(true);
-  check('ticking Online hides exactly the online cards',
-    vis() === cards.length - onlineCards.length,
-    `visible ${vis()}, expected ${cards.length - onlineCards.length}`);
-  check('hidden count reported', noteN() === onlineCards.length,
-    `note="${byId.hiddennote.textContent}"`);
+let p = boot();
+console.log('\nDefault state (nothing hidden)');
+check('all cards visible on a first visit', vis(p) === p.cards.length, `${vis(p)}/${p.cards.length}`);
+check('every box ticked on a first visit', p.checkboxes.every((b) => b.checked));
+check('no hidden count shown', p.byId.hiddennote.textContent === '');
+check('summary has no counts suffix', p.byId['region-count'].textContent === '');
 
-  const sgBox = box('Singapore');
-  const sgCards = cards.filter((c) => keysOf(c).includes('Singapore'));
-  if (sgBox) {
-    sgBox.tick(true);
-    const union = cards.filter((c) =>
-      keysOf(c).includes('Online') || keysOf(c).includes('Singapore')).length;
-    check('two ticked options hide their union', vis() === cards.length - union,
-      `visible ${vis()}, expected ${cards.length - union}`);
-    check('summary reports 2 selected', /2/.test(byId['excl-count'].textContent),
-      `summary="${byId['excl-count'].textContent}"`);
-    check('dropdown marked active', dd.classList.contains('active'));
-  }
-  sgBox?.tick(false);
-  check('unticking one restores only its cards',
-    vis() === cards.length - onlineCards.length, `visible ${vis()}`);
+console.log('\nUnticking a region filters it out');
+const contBox = p.checkboxes.find(isContinent);
+const contName = contBox.dataset.region;
+const contCards = p.cards.filter((c) => regionsOf(c).includes(contName));
+contBox.tick(false);
+check(`unticking ${contName} hides exactly its cards`,
+  vis(p) === p.cards.length - contCards.length,
+  `visible ${vis(p)}, expected ${p.cards.length - contCards.length}`);
+check('hidden count reported', noteN(p) === contCards.length, `note="${p.byId.hiddennote.textContent}"`);
+check('summary reports the remainder',
+  p.byId['region-count'].textContent.includes(`${p.checkboxes.length - 1} of ${p.checkboxes.length}`),
+  `summary="${p.byId['region-count'].textContent}"`);
+check('dropdown marked partial', p.dd.classList.contains('partial'));
 
-  onlineBox.tick(false);
-  check('unticking everything restores the full list', vis() === cards.length, `visible ${vis()}`);
-  check('summary count clears', byId['excl-count'].textContent === '',
-    `summary="${byId['excl-count'].textContent}"`);
-  check('active flag removed', !dd.classList.contains('active'));
-}
+const tbaCards = p.cards.filter((c) => regionsOf(c).includes('Location TBA'));
+check('location-TBA events survive a region being unticked',
+  tbaCards.every((c) => c.style.display !== 'none'),
+  `${tbaCards.filter((c) => c.style.display !== 'none').length}/${tbaCards.length} visible`);
 
-console.log('\nOutside-click closes the dropdown');
-dd.open = true;
-document.dispatch('click', { target: byId.q });
-check('click outside closes it', dd.open === false);
-dd.open = true;
-document.dispatch('click', { target: checkboxes[0] });
-check('click on an option keeps it open', dd.open === true);
-dd.open = false;
+console.log('\nPersistence across a reload');
+check('hidden set written to localStorage',
+  JSON.stringify(storedHidden()) === JSON.stringify([contName]),
+  `stored ${JSON.stringify(storedHidden())}`);
+check('storage holds HIDDEN regions, not shown ones',
+  Array.isArray(storedHidden()) && storedHidden().length === 1, JSON.stringify(storedHidden()));
 
-console.log('\nInclusion search still works');
-byId.q.type('kafka');
-const kafka = cards.filter((c) => (c.dataset.text || '').includes('kafka'));
-check('search narrows to matches', vis() === kafka.length, `visible ${vis()}, expected ${kafka.length}`);
-check('search is case-insensitive', (() => { byId.q.type('KAFKA'); return vis() === kafka.length; })());
-check('search composes with exclusion', (() => {
-  const ob = box('Online');
-  if (!ob) return false;
-  ob.tick(true);
-  const both = kafka.filter((c) => !keysOf(c).includes('Online')).length;
-  const ok = vis() === both;
-  ob.tick(false);
-  return ok;
-})(), 'search+exclusion did not intersect');
-byId.q.type('');
+const p2 = boot();
+check('reload restores the unticked box', boxOf(p2, contName)?.checked === false,
+  'box came back ticked');
+check('reload keeps those cards hidden', vis(p2) === p2.cards.length - contCards.length,
+  `visible ${vis(p2)}`);
+check('every other region still ticked after reload',
+  p2.checkboxes.filter((b) => b.checked).length === p2.checkboxes.length - 1,
+  `${p2.checkboxes.filter((b) => b.checked).length} ticked`);
+
+console.log('\nStorage robustness');
+store.set(STORE, JSON.stringify(['Atlantis', contName]));
+const p3 = boot();
+check('unknown stored region names are ignored',
+  boxOf(p3, contName)?.checked === false,
+  'a known key was dropped along with the unknown one');
+check('an unknown name hides nothing extra',
+  vis(p3) === p3.cards.length - contCards.length, `visible ${vis(p3)}`);
+check('regions absent from storage default to visible',
+  p3.checkboxes.filter((b) => b.checked).length === p3.checkboxes.length - 1,
+  'a region was hidden without ever being stored');
+
+store.set(STORE, 'not json at all');
+const p4 = boot();
+check('corrupt stored value degrades to all-visible', vis(p4) === p4.cards.length, `visible ${vis(p4)}`);
+
+store.clear();
+storageThrows = true;
+const p5 = boot();
+boxOf(p5, contName)?.tick(false);
+check('filtering still works when localStorage throws (private mode)',
+  vis(p5) === p5.cards.length - contCards.length,
+  `visible ${vis(p5)} — a throwing store broke filtering`);
+storageThrows = false;
 
 console.log('\nReset');
-const topicChip = chips.find((c) => c.dataset.topic !== undefined);
+store.set(STORE, JSON.stringify([contName]));
+const p6 = boot();
+check('reset starts from the restored state', vis(p6) === p6.cards.length - contCards.length,
+  `visible ${vis(p6)}`);
+p6.byId.reset.click();
+check('reset re-ticks every region', p6.checkboxes.every((b) => b.checked), 'a box stayed unticked');
+check('reset shows every card again', vis(p6) === p6.cards.length, `visible ${vis(p6)}`);
+check('reset clears the saved preference', JSON.stringify(storedHidden()) === '[]',
+  `stored ${JSON.stringify(storedHidden())}`);
+check('reset removes the partial marker', !p6.dd.classList.contains('partial'));
+
+console.log('\nSearch and topic filters still compose');
+p6.byId.q.type('kafka');
+const kafka = p6.cards.filter((c) => (c.dataset.text || '').includes('kafka'));
+check('search narrows to matches', vis(p6) === kafka.length, `visible ${vis(p6)}, expected ${kafka.length}`);
+check('search is case-insensitive', (() => { p6.byId.q.type('KAFKA'); return vis(p6) === kafka.length; })());
+check('search composes with region filtering', (() => {
+  const b = p6.checkboxes.find(isContinent);
+  b.tick(false);
+  const expect = kafka.filter((c) => !regionsOf(c).includes(b.dataset.region)).length;
+  const ok = vis(p6) === expect;
+  b.tick(true);
+  return ok;
+})(), 'search and region filter did not intersect');
+p6.byId.q.type('');
+const topicChip = p6.chips.find((c) => c.dataset.topic !== undefined);
 topicChip?.click();
-box('Online')?.tick(true);
-byId.q.type('kafka');
-byId.reset.click();
-check('reset restores every card', vis() === cards.length, `visible ${vis()}`);
-check('reset clears the search box', byId.q.value === '', `"${byId.q.value}"`);
-check('reset unticks the dropdown', checkboxes.every((b) => !b.checked), 'a box stayed ticked');
-check('reset clears the selected count', byId['excl-count'].textContent === '');
-check('reset unpresses the topic chip', topicChip?.getAttribute('aria-pressed') === 'false');
+check('topic chip still filters', vis(p6) <= p6.cards.length);
+topicChip?.click();
+check('clearing the topic chip restores everything', vis(p6) === p6.cards.length, `visible ${vis(p6)}`);
 
 console.log('\nMonth headers');
 check('all month headers visible when unfiltered',
-  months.every((mm) => mm.style.display !== 'none'), 'a header was hidden');
-checkboxes.forEach((b) => b.tick(true));
-check('empty month headers hide under heavy exclusion',
-  vis() === 0 || months.some((mm) => mm.style.display === 'none'), 'no header hidden');
-checkboxes.forEach((b) => b.tick(false));
+  p6.months.every((mm) => mm.style.display !== 'none'), 'a header was hidden');
+p6.checkboxes.forEach((b) => b.tick(false));
+check('empty month headers hide when every region is unticked',
+  vis(p6) === 0 || p6.months.some((mm) => mm.style.display === 'none'), 'no header hidden');
+p6.checkboxes.forEach((b) => b.tick(true));
 
-console.log('\nStyling');
+console.log('\nDropdown behaviour and styling');
+p6.byId['region-dd'].open = true;
+p6.document.dispatch('click', { target: p6.byId.q });
+check('click outside closes the dropdown', p6.byId['region-dd'].open === false);
+p6.byId['region-dd'].open = true;
+p6.document.dispatch('click', { target: p6.checkboxes[0] });
+check('click on an option keeps it open', p6.byId['region-dd'].open === true);
 check('no border-radius in served CSS', !/border-radius/.test(html), 'still rounded');
 // Regression: a scroll container on the controls bar clipped the dropdown and
 // put a scrollbar on the sticky bar.

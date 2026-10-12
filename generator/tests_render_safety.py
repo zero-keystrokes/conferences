@@ -198,28 +198,39 @@ def main() -> int:
     check("no exclusion text box — inclusion only", 'id="x"' not in body3)
     check("inclusion search box present", 'id="q"' in body3)
     check("hidden-count element exists (JS derefs it)", 'id="hiddennote"' in body3)
-    check("cards carry data-excl", 'data-excl="' in body3)
-    check("exclusion dropdown rendered", 'id="excl-dd"' in body3 and "<details" in body3)
-    check("dropdown options are checkboxes",
-          body3.count('type="checkbox" data-excl=') >= 1, "no checkboxes emitted")
-    check("summary has a selected-count slot", 'id="excl-count"' in body3)
+    check("cards carry region keys", 'data-regions="' in body3)
+    check("region dropdown rendered", 'id="region-dd"' in body3 and "<details" in body3)
+    check("summary has a counts slot", 'id="region-count"' in body3)
     check("topic chips still render", 'data-topic="Streaming &amp; Kafka"' in body3)
     # Filtering is wired through these exact selectors; if an attribute or the
     # selector drifts, clicking a control silently does nothing.
     check("JS selects topic chips by data-topic", ".chip[data-topic]" in render.JS)
-    check("JS reads the exclusion checkboxes", "input[type=checkbox][data-excl]" in render.JS)
-    check("reset unticks the checkboxes", "b.checked=false" in render.JS)
+    check("JS reads the region checkboxes", "input[type=checkbox][data-region]" in render.JS)
+    check("JS restores tick state from storage", "b.checked=!hideRegions.has(" in render.JS)
+    check("JS persists the hidden set", "localStorage.setItem(STORE" in render.JS)
+    check("JS reads the hidden set", "localStorage.getItem(STORE" in render.JS)
+    check("storage access is guarded (private mode throws)",
+          render.JS.count("catch(e)") >= 2, "an unguarded localStorage call")
+    check("reset re-ticks every region", "b.checked=true;" in render.JS)
 
-    # An option whose key no card carries would be a dead checkbox in the UI.
-    # Anchored on data-cfp so only card attributes match, not the checkboxes.
-    opt_keys = re.findall(r'<input type="checkbox" data-excl="([^"]*)"', body3)
-    card_keys: set = set()
-    for v in re.findall(r'data-cfp="[^"]*" data-excl="([^"]*)"', body3):
-        card_keys.update(k for k in v.split("|") if k)
-    check("dropdown lists country and online", bool(opt_keys), "none rendered")
-    check("every dropdown option matches a key a card carries",
-          all(c in card_keys for c in opt_keys),
-          f"orphans: {[c for c in opt_keys if c not in card_keys]}")
+    total_boxes = len(re.findall(r'<input type="checkbox" data-region="', body3))
+    ticked = len(re.findall(r'<input type="checkbox" data-region="[^"]*" checked>', body3))
+    check("every region renders ticked by default",
+          total_boxes > 0 and total_boxes == ticked, f"{ticked}/{total_boxes} ticked")
+
+    # An option whose key no card carries would be a dead checkbox, and a card
+    # with no region key could never be shown by an include filter.
+    opt_keys = re.findall(r'<input type="checkbox" data-region="([^"]*)"', body3)
+    card_attrs = re.findall(r'data-cfp="[^"]*" data-regions="([^"]*)"', body3)
+    flat: set = set()
+    for v in card_attrs:
+        flat.update(k for k in v.split("|") if k)
+    check("region options rendered", bool(opt_keys), "none rendered")
+    check("every card carries at least one region key", all(card_attrs),
+          "a card has no region — the include filter would strand it")
+    check("every option matches a region some card carries",
+          all(c in flat for c in opt_keys),
+          f"orphans: {[c for c in opt_keys if c not in flat]}")
     check("Online sorted to the top", bool(opt_keys) and opt_keys[0] == "Online",
           f"first={opt_keys[:1]}")
 
@@ -254,6 +265,37 @@ def main() -> int:
                              Event(name="B conf", country="USA", start=dt.date(2027, 2, 2))])
     check("merge leaves one country value for the chips",
           len({x.country for x in one_chip}) == 1, f"got {[x.country for x in one_chip]}")
+
+    print("\nRegion mapping (include filter)")
+    from render import _region_of, _REGION_BY_COUNTRY, TBA_REGION
+    check("US event maps to North America",
+          _region_of(Event(name="x", country="USA")) == ["North America"])
+    check("online event maps to Online",
+          _region_of(Event(name="x", online=True)) == ["Online"])
+    check("online + country carries both regions",
+          set(_region_of(Event(name="x", country="Germany", online=True))) == {"Online", "Europe"})
+    check("location-less event falls back to TBA (never unreachable)",
+          _region_of(Event(name="x")) == [TBA_REGION])
+    check("unknown country maps to Other",
+          _region_of(Event(name="x", country="Wakanda")) == ["Other"])
+    check("South Africa maps to Africa, not Asia",
+          _region_of(Event(name="x", country="South Africa")) == ["Africa"])
+    check("TBA is never a real region name",
+          TBA_REGION not in set(_REGION_BY_COUNTRY.values()))
+
+    print("\nVenue normalisation")
+    from model import normalize_venue
+    v = normalize_venue(Event(name="x", city="Online", country="Online"))
+    check("'Online' in city/country becomes an online flag",
+          v.online and not v.city and not v.country,
+          f"online={v.online} city={v.city!r} country={v.country!r}")
+    check("a virtual venue renders as just 'Online'", v.location == "Online",
+          f"got {v.location!r}")
+    check("such an event is not filed under Other",
+          _region_of(v) == ["Online"], f"got {_region_of(v)}")
+    real = normalize_venue(Event(name="y", city="Berlin", country="Germany"))
+    check("a real venue is left alone",
+          real.city == "Berlin" and real.country == "Germany" and not real.online)
 
     print()
     if FAILURES:

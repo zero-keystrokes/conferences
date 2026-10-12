@@ -57,7 +57,7 @@ input[type=search].excl{border-color:color-mix(in srgb,var(--danger) 45%,var(--l
 .dd>summary::-webkit-details-marker{display:none}
 .dd>summary::after{content:" ▾";opacity:.65}
 .dd[open]>summary{border-color:var(--accent);color:var(--accent)}
-.dd.active>summary{border-color:var(--danger);color:var(--danger)}
+.dd.partial>summary{border-color:var(--accent2);color:var(--accent2)}
 .ddmenu{position:absolute;z-index:20;top:calc(100% + 6px);left:0;min-width:230px;
   background:var(--panel2);border:1px solid var(--line);padding:7px;
   max-height:58vh;overflow:auto;display:flex;flex-direction:column}
@@ -110,8 +110,29 @@ footer ul{margin:8px 0 0;padding-left:18px}
 JS = """
 const cards=[...document.querySelectorAll('.card')];
 const q=document.getElementById('q');
-const boxes=[...document.querySelectorAll('input[type=checkbox][data-excl]')];
-let topics=new Set(), cfpOnly=false, hideKeys=new Set();
+const boxes=[...document.querySelectorAll('input[type=checkbox][data-region]')];
+const allRegions=boxes.map(b=>b.dataset.region);
+
+// What the user has HIDDEN is persisted, not what is shown. A region that first
+// appears in a later build therefore starts visible instead of being silently
+// filtered out by a preference saved before it existed.
+const STORE='sde:hidden-regions:v1';
+let hideRegions=new Set(readHidden());
+let topics=new Set(), cfpOnly=false;
+
+function readHidden(){
+  try{
+    const raw=JSON.parse(localStorage.getItem(STORE)||'[]');
+    // Drop names this build no longer knows, so a rename cannot hide a region.
+    return Array.isArray(raw)?raw.filter(k=>allRegions.includes(k)):[];
+  }catch(e){return [];}
+}
+function writeHidden(){
+  // localStorage throws in some privacy modes; a filter preference is never
+  // worth breaking the page over.
+  try{localStorage.setItem(STORE,JSON.stringify([...hideRegions]));}catch(e){}
+}
+boxes.forEach(b=>{b.checked=!hideRegions.has(b.dataset.region);});
 function apply(){
   const term=(q.value||'').trim().toLowerCase();
   let shown=0, hidden=0;
@@ -120,11 +141,11 @@ function apply(){
     const okTopic=topics.size===0||cardTopics.some(t=>topics.has(t));
     const okCfp=!cfpOnly||['open','closing-soon'].includes(c.dataset.cfp);
     const okTerm=!term||(c.dataset.text||'').includes(term);
-    const keys=(c.dataset.excl||'').split('|').filter(Boolean);
-    const excluded=keys.some(k=>hideKeys.has(k));
-    const on=okTopic&&okCfp&&okTerm&&!excluded;
+    const regions=(c.dataset.regions||'').split('|').filter(Boolean);
+    const okRegion=regions.length===0||regions.some(r=>!hideRegions.has(r));
+    const on=okTopic&&okCfp&&okTerm&&okRegion;
     c.style.display=on?'':'none';
-    if(on){shown++;}else if(excluded){hidden++;}
+    if(on){shown++;}else if(!okRegion){hidden++;}
   });
   document.querySelectorAll('.month').forEach(m=>{
     let n=0,s=m.nextElementSibling;
@@ -136,12 +157,12 @@ function apply(){
   });
   document.getElementById('noshow').style.display=shown?'none':'block';
   document.getElementById('hiddennote').textContent=
-    hidden?hidden+' hidden by your exclusions':'';
-  const n=hideKeys.size;
-  const cnt=document.getElementById('excl-count');
-  if(cnt)cnt.textContent=n?' \\u2014 '+n+' selected':'';
-  const dd=document.getElementById('excl-dd');
-  if(dd)dd.classList.toggle('active',n>0);
+    hidden?hidden+' hidden by the region filter':'';
+  const off=hideRegions.size;
+  const cnt=document.getElementById('region-count');
+  if(cnt)cnt.textContent=off?' \\u2014 '+(allRegions.length-off)+' of '+allRegions.length:'';
+  const dd=document.getElementById('region-dd');
+  if(dd)dd.classList.toggle('partial',off>0);
 }
 function tap(el,fn){
   if(!el)return;
@@ -156,9 +177,11 @@ document.querySelectorAll('.chip[data-topic]').forEach(ch=>tap(ch,()=>{
   ch.setAttribute('aria-pressed',topics.has(t));
   apply();
 }));
-document.querySelectorAll('input[type=checkbox][data-excl]').forEach(b=>{
+boxes.forEach(b=>{
   b.addEventListener('change',()=>{
-    if(b.checked){hideKeys.add(b.dataset.excl);}else{hideKeys.delete(b.dataset.excl);}
+    if(b.checked){hideRegions.delete(b.dataset.region);}
+    else{hideRegions.add(b.dataset.region);}
+    writeHidden();
     apply();
   });
 });
@@ -169,13 +192,14 @@ tap(document.querySelector('.chip.cfp'),()=>{
 });
 q.addEventListener('input',apply);
 tap(document.getElementById('reset'),()=>{
-  topics.clear();cfpOnly=false;hideKeys.clear();q.value='';
-  boxes.forEach(b=>{b.checked=false;});
+  topics.clear();cfpOnly=false;hideRegions.clear();q.value='';
+  boxes.forEach(b=>{b.checked=true;});
+  writeHidden();
   document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed','false'));
   apply();
 });
 document.addEventListener('click',ev=>{
-  const dd=document.getElementById('excl-dd');
+  const dd=document.getElementById('region-dd');
   if(dd&&dd.open&&!dd.contains(ev.target))dd.open=false;
 });
 apply();
@@ -184,6 +208,36 @@ apply();
 
 def e(s) -> str:
     return html.escape(str(s or ""), quote=True)
+
+
+# Country -> continent. Keys are the normalised labels produced by
+# model.normalize_country, so feeds that say "us" and "USA" both land here.
+_REGION_BY_COUNTRY = {
+    "USA": "North America", "Canada": "North America", "Mexico": "North America",
+    "Brazil": "South America", "Argentina": "South America", "Chile": "South America",
+    "Colombia": "South America", "Peru": "South America",
+    "UK": "Europe", "Germany": "Europe", "France": "Europe", "Netherlands": "Europe",
+    "Spain": "Europe", "Italy": "Europe", "Poland": "Europe", "Sweden": "Europe",
+    "Ireland": "Europe", "Hungary": "Europe", "Lithuania": "Europe", "Portugal": "Europe",
+    "Norway": "Europe", "Denmark": "Europe", "Finland": "Europe", "Belgium": "Europe",
+    "Austria": "Europe", "Switzerland": "Europe", "Czechia": "Europe",
+    "Czech Republic": "Europe", "Romania": "Europe", "Greece": "Europe",
+    "Estonia": "Europe", "Latvia": "Europe", "Ukraine": "Europe", "Serbia": "Europe",
+    "Bulgaria": "Europe", "Croatia": "Europe", "Slovakia": "Europe",
+    "Slovenia": "Europe", "Iceland": "Europe", "Luxembourg": "Europe",
+    "South Africa": "Africa", "Kenya": "Africa", "Nigeria": "Africa", "Egypt": "Africa",
+    "Ghana": "Africa", "Morocco": "Africa", "Tunisia": "Africa", "Rwanda": "Africa",
+    "Tanzania": "Africa", "Uganda": "Africa", "Ethiopia": "Africa",
+    "India": "Asia", "Singapore": "Asia", "Japan": "Asia", "China": "Asia",
+    "South Korea": "Asia", "Israel": "Asia", "UAE": "Asia",
+    "United Arab Emirates": "Asia", "Turkey": "Asia", "Indonesia": "Asia",
+    "Malaysia": "Asia", "Thailand": "Asia", "Vietnam": "Asia", "Philippines": "Asia",
+    "Hong Kong": "Asia", "Taiwan": "Asia", "Saudi Arabia": "Asia", "Qatar": "Asia",
+    "Pakistan": "Asia", "Bangladesh": "Asia", "Sri Lanka": "Asia", "Nepal": "Asia",
+    "Australia": "Oceania", "New Zealand": "Oceania",
+}
+
+TBA_REGION = "Location TBA"
 
 
 def safe_url(u) -> str:
@@ -199,18 +253,22 @@ def safe_url(u) -> str:
     return s if re.match(r"^https?://", s, re.I) else ""
 
 
-def _excl_keys(ev: Event) -> list:
-    """Values the "Hide" chips can switch on.
+def _region_of(ev: Event) -> list:
+    """Region keys a card belongs to, for the include-filter.
 
-    Country and online-ness are the coarse geography knobs worth a one-click
-    toggle. Cities deliberately stay out of the chip row (there are far too
-    many) and are reachable through the free-text exclude box instead.
+    Continent-level on purpose: the option list stays short and stable as the
+    data grows, and "which continent" is the question you answer when deciding
+    whether the trip is realistic. Every card gets at least one key — events
+    with no published location get TBA_REGION — so the include filter can never
+    make a card unreachable.
     """
     keys = []
-    if ev.country:
-        keys.append(ev.country)
     if ev.online:
         keys.append("Online")
+    if ev.country:
+        keys.append(_REGION_BY_COUNTRY.get(ev.country, "Other"))
+    if not keys:
+        keys.append(TBA_REGION)
     return keys
 
 
@@ -279,7 +337,7 @@ def _card(ev: Event) -> str:
         cls += " cfp-closing" if state == "closing-soon" else " cfp-open"
     text = f"{ev.name} {ev.location} {ev.source} {' '.join(ev.tags)}".lower()
     topics = "|".join(t for t in ev.tags if not t.isdigit() and len(t) < 26)
-    excl = "|".join(_excl_keys(ev))
+    excl = "|".join(_region_of(ev))
     href = safe_url(ev.url)
     link = (f'<a href="{e(href)}" target="_blank" rel="noopener noreferrer">{e(ev.name)}</a>'
             if href else e(ev.name))
@@ -287,7 +345,7 @@ def _card(ev: Event) -> str:
                 'first-party</span>') if ev.verified and ev.anchor else ""
     return (
         f'<div class="{cls}" data-topics="{e(topics)}" data-cfp="{e(state)}" '
-        f'data-excl="{e(excl)}" data-text="{e(text)}">'
+        f'data-regions="{e(excl)}" data-text="{e(text)}">'
         f'<h3>{link}{verified}</h3>'
         f'<div class="meta"><span class="d">{e(ev.date_label)}</span>'
         f'<span>{e(ev.location)}</span><span>{e(ev.source)}</span></div>'
@@ -368,20 +426,29 @@ def render(events: list[Event], meta: dict) -> str:
         f'<span class="chip" role="button" tabindex="0" aria-pressed="false" '
         f'data-topic="{e(t)}">{e(t)}</span>' for t in topics)
 
-    key_counts: Counter = Counter()
+    region_counts: Counter = Counter()
     for ev in events:
-        for k in _excl_keys(ev):
-            key_counts[k] += 1
-    # Online first (the exclusion people reach for most), then by how many
-    # events each option would hide, so the ones that matter sit at the top.
-    ordered_keys = sorted(key_counts.items(),
-                          key=lambda kv: (kv[0] != "Online", -kv[1], kv[0]))
+        for k in _region_of(ev):
+            region_counts[k] += 1
+    # Online first, then continents by how many events they hold, then the
+    # catch-alls. All boxes render ticked; the client applies any saved choice.
+    def _region_order(kv):
+        k, n = kv
+        if k == "Online":
+            return (0, 0, "")
+        if k == TBA_REGION:
+            return (2, 0, "")
+        if k == "Other":
+            return (3, 0, "")
+        return (1, -n, k)
+
+    ordered_regions = sorted(region_counts.items(), key=_region_order)
     dd_opts = "".join(
-        f'<label><input type="checkbox" data-excl="{e(k)}"> {e(k)}'
-        f'<span class="ct">{n}</span></label>' for k, n in ordered_keys)
-    excl_dd = ('<details class="dd" id="excl-dd">'
-               '<summary>Exclude<span id="excl-count"></span></summary>'
-               f'<div class="ddmenu">{dd_opts}</div></details>') if dd_opts else ""
+        f'<label><input type="checkbox" data-region="{e(k)}" checked> {e(k)}'
+        f'<span class="ct">{n}</span></label>' for k, n in ordered_regions)
+    region_dd = ('<details class="dd" id="region-dd">'
+                 '<summary>Regions<span id="region-count"></span></summary>'
+                 f'<div class="ddmenu">{dd_opts}</div></details>') if dd_opts else ""
 
     # Each event renders in exactly one section — a flagship with confirmed dates
     # belongs in the calendar, not repeated in a watchlist.
@@ -446,7 +513,7 @@ def render(events: list[Event], meta: dict) -> str:
     <span class="chip" id="reset" role="button" tabindex="0">reset</span>
   </div>
   <div class="ctlrow"><span class="ctlbl">Topic</span>{chips}</div>
-  <div class="ctlrow">{excl_dd}<span id="hiddennote" class="hiddennote"></span></div>
+  <div class="ctlrow">{region_dd}<span id="hiddennote" class="hiddennote"></span></div>
 </div>
 <div id="noshow" class="empty" style="display:none">Nothing matches those filters.</div>
 

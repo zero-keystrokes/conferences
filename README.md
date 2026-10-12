@@ -29,11 +29,21 @@ Client-side filters run over the rendered HTML; nothing is fetched at view time.
 **Inclusion** — topic chips, a "CFP open only" toggle, and a free-text search
 over name, city, source and tags.
 
-**Exclusion** — an **Exclude** dropdown of checkboxes: one per country, plus
-Online, each labelled with how many events it would hide. Tick as many as you
-want; the summary reports how many are selected and a running count shows how
-many cards the exclusions removed. Topic, search and exclusion combine — narrow
-to `kafka` and still exclude `online`.
+**Regions** — a **Regions** dropdown of checkboxes: one per continent, plus
+Online and Location TBA, each labelled with its event count. All are ticked by
+default — untick a region to drop it from the list. The summary shows the
+remainder (`— 5 of 6`) and the control turns amber while a filter is active.
+
+Your unticked regions are saved in `localStorage` and restored on your next
+visit. What gets stored is the *hidden* set, not the shown one, so a region
+that first appears in a future build starts visible instead of being silently
+filtered out by a preference saved before it existed. Stored names this build
+no longer recognises are dropped, corrupt values degrade to all-visible, and a
+throwing `localStorage` (private browsing) leaves the page working. `reset`
+re-ticks every region and clears the saved preference.
+
+Topic, search and region filters all compose — narrow to `kafka` and still drop
+a continent.
 
 ---
 

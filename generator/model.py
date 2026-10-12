@@ -217,6 +217,24 @@ def normalize_country(c: str) -> str:
     return s.upper() if len(s) == 2 and s.isalpha() else s
 
 
+_ONLINE_LABELS = {"online", "virtual", "remote", "worldwide", "anywhere"}
+
+
+def normalize_venue(ev: "Event") -> "Event":
+    """Feeds put "Online" in the city/country fields.
+
+    Left alone it renders as "Online, Online" and — once regions are derived
+    from country — files a virtual event under a geographic region it has
+    nothing to do with.
+    """
+    for field in ("city", "country"):
+        val = (getattr(ev, field) or "").strip()
+        if val.lower() in _ONLINE_LABELS:
+            setattr(ev, field, "")
+            ev.online = True
+    return ev
+
+
 # Words that carry no identity — two events sharing only these are not the same
 # event. Domain terms like "data" and "kafka" are deliberately kept.
 _GENERIC_TOKENS = {
@@ -300,5 +318,6 @@ def merge_events(events: list) -> list:
             _absorb(hit, e)
 
     for e in out:
+        normalize_venue(e)
         e.country = normalize_country(e.country)
     return out
