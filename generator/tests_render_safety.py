@@ -12,6 +12,7 @@ from __future__ import annotations
 import datetime as dt
 import json
 import pathlib
+import re
 import sys
 import tempfile
 
@@ -186,6 +187,49 @@ def main() -> int:
     check("three-way merge yields one record", len(mm) == 1, f"got {len(mm)}")
     check("no duplicated source label",
           mm and mm[0].source.count("conference-data") == 1, f"got {mm[0].source!r}" if mm else "")
+
+    print("\nPage chrome")
+    check("no border-radius left in the CSS", "border-radius" not in render.CSS,
+          "an element is still rounded")
+
+    _, body3, _ = render_one(Event(name="Kafka Summit", url="https://a.example/",
+                                   start=dt.date.today(), country="USA", online=True,
+                                   tags=["Streaming & Kafka", "Lakehouse & Table Formats"]))
+    check("exclude box is rendered", 'id="x"' in body3)
+    check("hidden-count element exists (JS derefs it)", 'id="hiddennote"' in body3)
+    check("cards carry data-excl", 'data-excl="' in body3)
+    check("JS wires the exclude box to a handler", "x.addEventListener('input'" in render.JS)
+    check("reset clears the exclude box", "x.value=''" in render.JS)
+    check("topic chips still render", 'data-topic="Streaming &amp; Kafka"' in body3)
+    # Topic filtering is wired through this exact selector; if the attribute or
+    # the selector drifts, clicking a topic chip silently does nothing.
+    check("JS selects topic chips by data-topic", ".chip[data-topic]" in render.JS)
+    check("JS selects hide chips by .chip.hide", ".chip.hide" in render.JS)
+
+    # A hide chip whose key no card carries would be a dead toggle in the UI.
+    chip_keys = re.findall(r'class="chip hide"[^>]*data-excl="([^"]*)"', body3)
+    card_keys: set = set()
+    for v in re.findall(r'data-excl="([^"]*)"', body3):
+        card_keys.update(k for k in v.split("|") if k)
+    check("hide chips rendered for country and online", bool(chip_keys), "none rendered")
+    check("every hide chip targets a key a card actually has",
+          all(c in card_keys for c in chip_keys),
+          f"orphans: {[c for c in chip_keys if c not in card_keys]}")
+
+    print("\nCountry normalisation")
+    from model import normalize_country
+    check("'us' and 'USA' collapse to one label",
+          normalize_country("us") == "USA" and normalize_country("United States") == "USA")
+    check("'uk' and 'United Kingdom' collapse",
+          normalize_country("uk") == "UK" and normalize_country("United Kingdom") == "UK")
+    check("mixed-case code normalises", normalize_country("Us") == "USA")
+    check("unmapped name passes through", normalize_country("Lithuania") == "Lithuania")
+    check("unmapped 2-letter code is uppercased", normalize_country("nz") == "NZ")
+    check("empty stays empty", normalize_country("") == "")
+    one_chip = merge_events([Event(name="A conf", country="us", start=dt.date(2027, 2, 1)),
+                             Event(name="B conf", country="USA", start=dt.date(2027, 2, 2))])
+    check("merge leaves one country value for the chips",
+          len({x.country for x in one_chip}) == 1, f"got {[x.country for x in one_chip]}")
 
     print()
     if FAILURES:

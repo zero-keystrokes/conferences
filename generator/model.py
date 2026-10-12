@@ -190,6 +190,33 @@ def _richness(e: Event) -> int:
     return r
 
 
+# Feeds disagree on country labels ("USA" / "us" / "United States"). Without
+# collapsing them, one country becomes several filter chips and hiding one
+# leaves the others visible.
+_COUNTRY_FIX = {
+    "us": "USA", "usa": "USA", "united states": "USA", "united states of america": "USA",
+    "uk": "UK", "gb": "UK", "united kingdom": "UK", "england": "UK", "scotland": "UK",
+    "de": "Germany", "fr": "France", "nl": "Netherlands", "ca": "Canada",
+    "es": "Spain", "in": "India", "sg": "Singapore", "jp": "Japan",
+    "au": "Australia", "br": "Brazil", "pl": "Poland", "it": "Italy",
+    "se": "Sweden", "ie": "Ireland", "il": "Israel", "cn": "China",
+    "kr": "South Korea", "za": "South Africa", "hu": "Hungary", "lt": "Lithuania",
+}
+
+
+def normalize_country(c: str) -> str:
+    """Collapse country variants so one country maps to one filter chip."""
+    s = (c or "").strip()
+    if not s:
+        return ""
+    fixed = _COUNTRY_FIX.get(s.lower())
+    if fixed:
+        return fixed
+    # An unmapped two-letter code is still a country code — uppercase it so it
+    # at least matches a same-code sibling from another feed.
+    return s.upper() if len(s) == 2 and s.isalpha() else s
+
+
 # Words that carry no identity — two events sharing only these are not the same
 # event. Domain terms like "data" and "kafka" are deliberately kept.
 _GENERIC_TOKENS = {
@@ -271,4 +298,7 @@ def merge_events(events: list) -> list:
             out.append(e)
         else:
             _absorb(hit, e)
+
+    for e in out:
+        e.country = normalize_country(e.country)
     return out

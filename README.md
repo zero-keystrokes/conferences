@@ -24,8 +24,16 @@ Each card carries the event's dates, location, whether it's online, the source i
 came from, topic tags, and — where one exists — a CFP box with the closing date,
 days remaining and a direct submission link.
 
-Client-side filters (topic chips, "CFP open only", free-text search) run over the
-rendered HTML. Nothing is fetched at view time.
+Client-side filters run over the rendered HTML; nothing is fetched at view time.
+
+**Inclusion** — topic chips, a "CFP open only" toggle, and a free-text search
+over name, city, source and tags.
+
+**Exclusion** — the second box takes comma-separated terms (`online, berlin,
+singapore`) and hides anything matching, plus a row of one-click **Hide** chips
+for country and online-ness. A running count shows how many cards your
+exclusions removed, and `reset` clears both directions. Topic, search and
+exclusion combine: you can narrow to `kafka` and still exclude `online`.
 
 ---
 
@@ -77,6 +85,7 @@ conferences/
 │   ├── anchors.json      # curated flagship events (edit this to add yours)
 │   ├── collect_cache.py  # cache a raw pull for offline tuning
 │   └── tune.py           # inspect classifier output against a cached pull
+├── tests_filters.mjs     # runs the shipped filter JS against the shipped markup
 ├── nightly.sh            # what cron runs
 └── raw-cache.json        # gitignored scratch
 ```

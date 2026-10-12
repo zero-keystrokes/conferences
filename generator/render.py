@@ -5,6 +5,7 @@ import datetime as dt
 import html
 import json
 import re
+from collections import Counter
 
 from model import Event
 
@@ -12,7 +13,7 @@ CSS = """
 :root{
   --bg:#0f1420; --panel:#161d2d; --panel2:#1c2436; --line:#2a3550;
   --text:#e8edf7; --muted:#93a1bf; --accent:#38d6c4; --accent2:#ffb454;
-  --danger:#ff7a7a; --ok:#5ddc8b; --radius:12px;
+  --danger:#ff7a7a; --ok:#5ddc8b;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);
@@ -26,26 +27,33 @@ h1 .spark{color:var(--accent2)}
 .sub{color:var(--muted);font-size:13.5px}
 .sub b{color:var(--text)}
 .stats{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 4px}
-.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
-  padding:10px 14px;min-width:112px}
+.stat{background:var(--panel);border:1px solid var(--line);padding:10px 14px;min-width:112px}
 .stat .n{font-size:21px;font-weight:650;color:var(--accent)}
 .stat .l{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
 .stat.warn .n{color:var(--accent2)}
 h2{font-size:17px;margin:34px 0 4px;display:flex;align-items:center;gap:9px}
 h2 .cnt{font-size:12px;color:var(--muted);font-weight:400}
-h2::before{content:"";width:4px;height:17px;background:var(--accent);border-radius:2px}
+h2::before{content:"";width:4px;height:17px;background:var(--accent)}
 .hint{color:var(--muted);font-size:13px;margin:0 0 14px}
-.controls{position:sticky;top:0;z-index:5;background:linear-gradient(var(--bg) 72%,transparent);
-  padding:12px 0 10px;margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.controls{position:sticky;top:0;z-index:5;background:var(--bg);
+  border-bottom:1px solid var(--line);padding:12px 0 10px;margin-top:18px;
+  display:flex;flex-wrap:wrap;gap:8px;align-items:center;max-height:46vh;overflow:auto}
+.ctlrow{flex-basis:100%;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.ctlbl{color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.6px}
 input[type=search]{background:var(--panel);border:1px solid var(--line);color:var(--text);
-  border-radius:9px;padding:8px 12px;font-size:13.5px;min-width:210px;flex:1}
+  padding:8px 12px;font-size:13.5px;min-width:180px;flex:1}
+input[type=search].excl{border-color:color-mix(in srgb,var(--danger) 45%,var(--line))}
 .chip{background:var(--panel);border:1px solid var(--line);color:var(--muted);
-  border-radius:999px;padding:5px 12px;font-size:12.5px;cursor:pointer;user-select:none}
+  padding:5px 12px;font-size:12.5px;cursor:pointer;user-select:none}
+.chip .ct{opacity:.6;font-size:11px}
 .chip[aria-pressed=true]{border-color:var(--accent);color:var(--accent);
   background:color-mix(in srgb,var(--accent) 12%,var(--panel))}
+.chip.hide[aria-pressed=true]{border-color:var(--danger);color:var(--danger);
+  background:color-mix(in srgb,var(--danger) 12%,var(--panel));text-decoration:line-through}
+.hiddennote{color:var(--danger);font-size:12.5px}
 .month{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;
   margin:22px 0 9px;border-bottom:1px dashed var(--line);padding-bottom:5px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+.card{background:var(--panel);border:1px solid var(--line);
   padding:14px 16px;margin-bottom:10px;border-left:3px solid var(--line)}
 .card.flagship{border-left-color:var(--accent2);background:var(--panel2)}
 .card.cfp-closing{border-left-color:var(--danger)}
@@ -53,7 +61,7 @@ input[type=search]{background:var(--panel);border:1px solid var(--line);color:va
 .card h3{margin:0 0 5px;font-size:15.5px;font-weight:600;line-height:1.35}
 .meta{color:var(--muted);font-size:13px;display:flex;flex-wrap:wrap;gap:5px 14px;margin-bottom:7px}
 .meta .d{color:var(--accent);font-weight:600}
-.badge{display:inline-block;font-size:10.5px;padding:2px 8px;border-radius:999px;
+.badge{display:inline-block;font-size:10.5px;padding:2px 8px;
   border:1px solid var(--line);color:var(--muted);margin-right:5px;text-transform:uppercase;
   letter-spacing:.4px}
 .badge.t{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
@@ -61,21 +69,21 @@ input[type=search]{background:var(--panel);border:1px solid var(--line);color:va
 .badge.soon{color:var(--danger);border-color:color-mix(in srgb,var(--danger) 50%,var(--line))}
 .badge.flag{color:var(--accent2);border-color:color-mix(in srgb,var(--accent2) 50%,var(--line))}
 .cfpbox{margin-top:9px;background:var(--panel2);border:1px solid var(--line);
-  border-radius:9px;padding:9px 11px;font-size:13px}
+  padding:9px 11px;font-size:13px}
 .cfpbox.closing{border-color:color-mix(in srgb,var(--danger) 45%,var(--line))}
 .cfpbox .row{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
 .cfpbox .lbl{color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.4px}
 .cfpbox .val{font-weight:600}
 .cfpbox .note{color:var(--muted);font-size:12.5px;margin-top:5px}
 .why{color:var(--muted);font-size:11.5px;margin-top:7px}
-.why code{background:var(--panel2);padding:1px 5px;border-radius:4px;font-size:11px}
-.empty{color:var(--muted);padding:18px;border:1px dashed var(--line);border-radius:var(--radius)}
+.why code{background:var(--panel2);padding:1px 5px;font-size:11px}
+.empty{color:var(--muted);padding:18px;border:1px dashed var(--line)}
 footer{margin-top:44px;border-top:1px solid var(--line);padding-top:16px;
   color:var(--muted);font-size:12.5px}
 footer ul{margin:8px 0 0;padding-left:18px}
 .warnbox{background:color-mix(in srgb,var(--accent2) 10%,var(--panel));
   border:1px solid color-mix(in srgb,var(--accent2) 35%,var(--line));
-  border-radius:var(--radius);padding:11px 14px;font-size:12.5px;color:var(--muted);margin-top:16px}
+  padding:11px 14px;font-size:12.5px;color:var(--muted);margin-top:16px}
 .warnbox b{color:var(--accent2)}
 @media(max-width:600px){h1{font-size:22px}.wrap{padding:18px 14px 60px}}
 """
@@ -83,18 +91,28 @@ footer ul{margin:8px 0 0;padding-left:18px}
 JS = """
 const cards=[...document.querySelectorAll('.card')];
 const q=document.getElementById('q');
-let topics=new Set(), cfpOnly=false;
+const x=document.getElementById('x');
+let topics=new Set(), cfpOnly=false, hideKeys=new Set();
+function exTerms(){
+  return (x.value||'').toLowerCase().split(',').map(s=>s.trim()).filter(Boolean);
+}
 function apply(){
   const term=(q.value||'').trim().toLowerCase();
-  let shown=0;
+  const ex=exTerms();
+  let shown=0, hidden=0;
   cards.forEach(c=>{
     const cardTopics=(c.dataset.topics||'').split('|').filter(Boolean);
     const okTopic=topics.size===0||cardTopics.some(t=>topics.has(t));
     const okCfp=!cfpOnly||['open','closing-soon'].includes(c.dataset.cfp);
     const okTerm=!term||(c.dataset.text||'').includes(term);
-    const on=okTopic&&okCfp&&okTerm;
+    const keys=(c.dataset.excl||'').split('|').filter(Boolean);
+    const okKey=!keys.some(k=>hideKeys.has(k));
+    const hay=(c.dataset.text||'')+' '+(c.dataset.excl||'').toLowerCase();
+    const okEx=!ex.some(t=>hay.includes(t));
+    const excluded=!okKey||!okEx;
+    const on=okTopic&&okCfp&&okTerm&&!excluded;
     c.style.display=on?'':'none';
-    if(on)shown++;
+    if(on){shown++;}else if(excluded){hidden++;}
   });
   document.querySelectorAll('.month').forEach(m=>{
     let n=0,s=m.nextElementSibling;
@@ -105,19 +123,37 @@ function apply(){
     m.style.display=n?'':'none';
   });
   document.getElementById('noshow').style.display=shown?'none':'block';
+  document.getElementById('hiddennote').textContent=
+    hidden?hidden+' hidden by your exclusions':'';
 }
-document.querySelectorAll('.chip').forEach(ch=>ch.addEventListener('click',()=>{
+function tap(el,fn){
+  if(!el)return;
+  el.addEventListener('click',fn);
+  el.addEventListener('keydown',ev=>{
+    if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();fn();}
+  });
+}
+document.querySelectorAll('.chip[data-topic]').forEach(ch=>tap(ch,()=>{
   const t=ch.dataset.topic;
-  if(topics.has(t))topics.delete(t);else topics.add(t);
+  if(topics.has(t)){topics.delete(t);}else{topics.add(t);}
   ch.setAttribute('aria-pressed',topics.has(t));
   apply();
 }));
-document.querySelectorAll('.chip.cfp').forEach(ch=>ch.addEventListener('click',()=>{
-  cfpOnly=!cfpOnly;ch.setAttribute('aria-pressed',cfpOnly);apply();
+document.querySelectorAll('.chip.hide').forEach(ch=>tap(ch,()=>{
+  const k=ch.dataset.excl;
+  if(hideKeys.has(k)){hideKeys.delete(k);}else{hideKeys.add(k);}
+  ch.setAttribute('aria-pressed',hideKeys.has(k));
+  apply();
 }));
+tap(document.querySelector('.chip.cfp'),()=>{
+  cfpOnly=!cfpOnly;
+  document.querySelector('.chip.cfp').setAttribute('aria-pressed',cfpOnly);
+  apply();
+});
 q.addEventListener('input',apply);
-document.getElementById('reset').addEventListener('click',()=>{
-  topics.clear();cfpOnly=false;q.value='';
+x.addEventListener('input',apply);
+tap(document.getElementById('reset'),()=>{
+  topics.clear();cfpOnly=false;hideKeys.clear();q.value='';x.value='';
   document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed','false'));
   apply();
 });
@@ -140,6 +176,21 @@ def safe_url(u) -> str:
         return ""
     s = str(u).strip()
     return s if re.match(r"^https?://", s, re.I) else ""
+
+
+def _excl_keys(ev: Event) -> list:
+    """Values the "Hide" chips can switch on.
+
+    Country and online-ness are the coarse geography knobs worth a one-click
+    toggle. Cities deliberately stay out of the chip row (there are far too
+    many) and are reachable through the free-text exclude box instead.
+    """
+    keys = []
+    if ev.country:
+        keys.append(ev.country)
+    if ev.online:
+        keys.append("Online")
+    return keys
 
 
 def _badges(ev: Event) -> str:
@@ -207,6 +258,7 @@ def _card(ev: Event) -> str:
         cls += " cfp-closing" if state == "closing-soon" else " cfp-open"
     text = f"{ev.name} {ev.location} {ev.source} {' '.join(ev.tags)}".lower()
     topics = "|".join(t for t in ev.tags if not t.isdigit() and len(t) < 26)
+    excl = "|".join(_excl_keys(ev))
     href = safe_url(ev.url)
     link = (f'<a href="{e(href)}" target="_blank" rel="noopener noreferrer">{e(ev.name)}</a>'
             if href else e(ev.name))
@@ -214,7 +266,7 @@ def _card(ev: Event) -> str:
                 'first-party</span>') if ev.verified and ev.anchor else ""
     return (
         f'<div class="{cls}" data-topics="{e(topics)}" data-cfp="{e(state)}" '
-        f'data-text="{e(text)}">'
+        f'data-excl="{e(excl)}" data-text="{e(text)}">'
         f'<h3>{link}{verified}</h3>'
         f'<div class="meta"><span class="d">{e(ev.date_label)}</span>'
         f'<span>{e(ev.location)}</span><span>{e(ev.source)}</span></div>'
@@ -295,6 +347,15 @@ def render(events: list[Event], meta: dict) -> str:
         f'<span class="chip" role="button" tabindex="0" aria-pressed="false" '
         f'data-topic="{e(t)}">{e(t)}</span>' for t in topics)
 
+    key_counts: Counter = Counter()
+    for ev in events:
+        for k in _excl_keys(ev):
+            key_counts[k] += 1
+    hide_chips = "".join(
+        f'<span class="chip hide" role="button" tabindex="0" aria-pressed="false" '
+        f'data-excl="{e(k)}">Hide {e(k)} <span class="ct">{n}</span></span>'
+        for k, n in key_counts.most_common(12))
+
     # Each event renders in exactly one section — a flagship with confirmed dates
     # belongs in the calendar, not repeated in a watchlist.
     body = [
@@ -352,10 +413,15 @@ def render(events: list[Event], meta: dict) -> str:
 </div>
 
 <div class="controls">
-  <input id="q" type="search" placeholder="Filter by name, city or source…" aria-label="Filter events">
-  <span class="chip cfp" role="button" tabindex="0" aria-pressed="false">CFP open only</span>
-  {chips}
-  <span class="chip" id="reset" role="button" tabindex="0">reset</span>
+  <div class="ctlrow">
+    <input id="q" type="search" placeholder="Filter by name, city or source…" aria-label="Filter events">
+    <input id="x" class="excl" type="search" placeholder="Exclude… comma separated, e.g. Online, Berlin, Singapore" aria-label="Exclude events">
+    <span class="chip cfp" role="button" tabindex="0" aria-pressed="false">CFP open only</span>
+    <span class="chip" id="reset" role="button" tabindex="0">reset</span>
+  </div>
+  <div class="ctlrow"><span class="ctlbl">Topic</span>{chips}</div>
+  <div class="ctlrow"><span class="ctlbl">Hide</span>{hide_chips}
+    <span id="hiddennote" class="hiddennote"></span></div>
 </div>
 <div id="noshow" class="empty" style="display:none">Nothing matches those filters.</div>
 
