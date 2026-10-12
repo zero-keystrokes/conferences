@@ -1,39 +1,10 @@
 {
-  "generated_at": "2026-10-11 03:15",
-  "window_start": "2026-10-11",
-  "window_end": "2027-01-11",
-  "count": 25,
+  "generated_at": "2026-10-12 03:15",
+  "window_start": "2026-10-12",
+  "window_end": "2027-01-12",
+  "count": 26,
   "warnings": [],
   "events": [
-    {
-      "name": "Community Over Code 2026 (Apache Software Foundation)",
-      "url": "https://communityovercode.org/",
-      "start": "2026-10-11",
-      "end": "2026-10-14",
-      "city": "",
-      "country": "",
-      "online": false,
-      "kind": "conference",
-      "source": "curated",
-      "source_url": "https://communityovercode.org/",
-      "cfp_url": "",
-      "cfp_close": null,
-      "cfp_open": null,
-      "cfp_note": "The ASF's annual conference \u2014 home to the Kafka, Flink, Iceberg, Pulsar and Airflow project communities. Runs an open CFP each year; the 2026 call has closed.",
-      "description": "The Apache Software Foundation community conference.",
-      "tags": [
-        "flagship"
-      ],
-      "score": 0,
-      "matched": [],
-      "verified": true,
-      "anchor": true,
-      "location": "Location TBA",
-      "date_label": "Oct 11\u201314, 2026",
-      "cfp_days_left": null,
-      "cfp_state": "unknown",
-      "id": "30f3c4cdd3812ae9"
-    },
     {
       "name": "2nd International Conference on Artificial Intelligence and Big Data Analytics",
       "url": "https://vartusconferences.com/aibda",
@@ -129,9 +100,40 @@
       "anchor": false,
       "location": "Johannesburg, South Africa",
       "date_label": "Oct 31, 2026",
-      "cfp_days_left": -11,
+      "cfp_days_left": -12,
       "cfp_state": "closed",
       "id": "f5c94978453eb481"
+    },
+    {
+      "name": "Entrepreneurs, Innovators and Everybody, Spark Your Creative Genius Poetically!",
+      "url": "https://www.meetup.com/svsei-org/events/316943378/",
+      "start": "2026-11-01",
+      "end": null,
+      "city": "San Jose",
+      "country": "us",
+      "online": false,
+      "kind": "meetup",
+      "source": "meetup",
+      "source_url": "https://www.meetup.com/find/",
+      "cfp_url": "",
+      "cfp_close": null,
+      "cfp_open": null,
+      "cfp_note": "",
+      "description": "",
+      "tags": [
+        "Data Engineering"
+      ],
+      "score": 6.0,
+      "matched": [
+        "spark"
+      ],
+      "verified": false,
+      "anchor": false,
+      "location": "San Jose, us",
+      "date_label": "Nov 1, 2026",
+      "cfp_days_left": null,
+      "cfp_state": "unknown",
+      "id": "d8f0e7505bcaf1f8"
     },
     {
       "name": "Open Source Analytics Conference",
@@ -254,7 +256,7 @@
       "anchor": false,
       "location": "Budapest, Hungary",
       "date_label": "Nov 16\u201318, 2026",
-      "cfp_days_left": -161,
+      "cfp_days_left": -162,
       "cfp_state": "closed",
       "id": "d701a608fe6c73b5"
     },
@@ -286,6 +288,35 @@
       "cfp_days_left": null,
       "cfp_state": "unknown",
       "id": "6a68720afdafebc5"
+    },
+    {
+      "name": "Community Over Code 2026 (Apache Software Foundation)",
+      "url": "https://communityovercode.org/",
+      "start": "2026-11-18",
+      "end": "2026-11-19",
+      "city": "",
+      "country": "",
+      "online": false,
+      "kind": "conference",
+      "source": "curated",
+      "source_url": "https://communityovercode.org/",
+      "cfp_url": "",
+      "cfp_close": null,
+      "cfp_open": null,
+      "cfp_note": "The ASF's annual conference \u2014 home to the Kafka, Flink, Iceberg, Pulsar and Airflow project communities. Runs an open CFP each year; the 2026 call has closed.",
+      "description": "The Apache Software Foundation community conference.",
+      "tags": [
+        "flagship"
+      ],
+      "score": 0,
+      "matched": [],
+      "verified": true,
+      "anchor": true,
+      "location": "Location TBA",
+      "date_label": "Nov 18\u201319, 2026",
+      "cfp_days_left": null,
+      "cfp_state": "unknown",
+      "id": "404106ebe9e4f0fb"
     },
     {
       "name": "San Francisco Data Engineering Meetup with ClickHouse",
@@ -348,7 +379,7 @@
       "anchor": false,
       "location": "Vilnius, Lithuania",
       "date_label": "Nov 24\u201327, 2026",
-      "cfp_days_left": 43,
+      "cfp_days_left": 42,
       "cfp_state": "open",
       "id": "5c70286b9661b7ea"
     },
@@ -408,7 +439,7 @@
       "anchor": false,
       "location": "Online, Online",
       "date_label": "Dec 1, 2026",
-      "cfp_days_left": 81,
+      "cfp_days_left": 80,
       "cfp_state": "open",
       "id": "6345b6b291f66e55"
     },
@@ -439,7 +470,7 @@
       "anchor": false,
       "location": "Houston, TX, USA",
       "date_label": "Dec 4\u20135, 2026",
-      "cfp_days_left": -7,
+      "cfp_days_left": -8,
       "cfp_state": "closed",
       "id": "34d62335456f7920"
     },
@@ -470,7 +501,7 @@
       "anchor": false,
       "location": "Online, Online",
       "date_label": "Dec 11\u201312, 2026",
-      "cfp_days_left": 20,
+      "cfp_days_left": 19,
       "cfp_state": "open",
       "id": "87701bd88e37cb15"
     },
@@ -530,7 +561,7 @@
       "anchor": false,
       "location": "Redwood Shores, CA, USA",
       "date_label": "Apr 13\u201315, 2027",
-      "cfp_days_left": 27,
+      "cfp_days_left": 26,
       "cfp_state": "open",
       "id": "4089336412fcd149"
     },
