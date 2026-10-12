@@ -223,6 +223,23 @@ def main() -> int:
     check("Online sorted to the top", bool(opt_keys) and opt_keys[0] == "Online",
           f"first={opt_keys[:1]}")
 
+    # Regression: the controls bar was a scroll container, which clipped the
+    # absolutely-positioned dropdown and put a scrollbar on the sticky bar.
+    controls_css = re.search(r"\.controls\{([^}]*)\}", render.CSS).group(1)
+    check("controls bar is NOT a scroll container", 
+          "overflow" not in controls_css and "max-height" not in controls_css,
+          f"got: {controls_css!r}")
+    menu_css = re.search(r"\.ddmenu\{([^}]*)\}", render.CSS).group(1)
+    check("dropdown menu is absolutely positioned", "position:absolute" in menu_css,
+          f"got: {menu_css!r}")
+    check("dropdown menu stacks above the cards", "z-index" in menu_css)
+    check("no other rule sets overflow on an ancestor of the menu",
+          not re.search(r"\.(wrap|card)\{[^}]*overflow\s*:", render.CSS),
+          "an ancestor clips the menu")
+    check("narrow screens unpin the controls bar",
+          ".controls{position:static}" in render.CSS,
+          "sticky bar will eat the viewport on phones")
+
     print("\nCountry normalisation")
     from model import normalize_country
     check("'us' and 'USA' collapse to one label",

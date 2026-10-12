@@ -216,6 +216,15 @@ checkboxes.forEach((b) => b.tick(false));
 
 console.log('\nStyling');
 check('no border-radius in served CSS', !/border-radius/.test(html), 'still rounded');
+// Regression: a scroll container on the controls bar clipped the dropdown and
+// put a scrollbar on the sticky bar.
+const controlsCss = html.match(/\.controls\{([^}]*)\}/)?.[1] ?? '';
+check('controls bar is not a scroll container',
+  !/overflow/.test(controlsCss) && !/max-height/.test(controlsCss), `got: ${controlsCss}`);
+const menuCss = html.match(/\.ddmenu\{([^}]*)\}/)?.[1] ?? '';
+check('dropdown menu is absolutely positioned', /position:absolute/.test(menuCss), `got: ${menuCss}`);
+check('dropdown menu stacks above the cards', /z-index/.test(menuCss));
+check('narrow screens unpin the controls bar', /\.controls\{position:static\}/.test(html));
 
 console.log(fail ? `\n${fail} FAILURE(S)` : '\nAll browser-logic checks passed.');
 process.exit(fail ? 1 : 0);

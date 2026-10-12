@@ -35,9 +35,12 @@ h2{font-size:17px;margin:34px 0 4px;display:flex;align-items:center;gap:9px}
 h2 .cnt{font-size:12px;color:var(--muted);font-weight:400}
 h2::before{content:"";width:4px;height:17px;background:var(--accent)}
 .hint{color:var(--muted);font-size:13px;margin:0 0 14px}
+/* NOTE: no overflow/max-height here. An absolutely-positioned dropdown nested
+   in a scroll container is clipped by that container and adds a scrollbar to
+   the sticky bar — which is exactly what the Exclude menu did. */
 .controls{position:sticky;top:0;z-index:5;background:var(--bg);
   border-bottom:1px solid var(--line);padding:12px 0 10px;margin-top:18px;
-  display:flex;flex-wrap:wrap;gap:8px;align-items:center;max-height:46vh;overflow:auto}
+  display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .ctlrow{flex-basis:100%;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .ctlbl{color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.6px}
 input[type=search]{background:var(--panel);border:1px solid var(--line);color:var(--text);
@@ -98,7 +101,10 @@ footer ul{margin:8px 0 0;padding-left:18px}
   border:1px solid color-mix(in srgb,var(--accent2) 35%,var(--line));
   padding:11px 14px;font-size:12.5px;color:var(--muted);margin-top:16px}
 .warnbox b{color:var(--accent2)}
-@media(max-width:600px){h1{font-size:22px}.wrap{padding:18px 14px 60px}}
+/* On narrow screens the wrap-heavy bar would eat the viewport if pinned, so it
+   scrolls away with the page instead. */
+@media(max-width:600px){h1{font-size:22px}.wrap{padding:18px 14px 60px}
+  .controls{position:static}}
 """
 
 JS = """
