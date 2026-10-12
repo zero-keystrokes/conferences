@@ -195,26 +195,33 @@ def main() -> int:
     _, body3, _ = render_one(Event(name="Kafka Summit", url="https://a.example/",
                                    start=dt.date.today(), country="USA", online=True,
                                    tags=["Streaming & Kafka", "Lakehouse & Table Formats"]))
-    check("exclude box is rendered", 'id="x"' in body3)
+    check("no exclusion text box — inclusion only", 'id="x"' not in body3)
+    check("inclusion search box present", 'id="q"' in body3)
     check("hidden-count element exists (JS derefs it)", 'id="hiddennote"' in body3)
     check("cards carry data-excl", 'data-excl="' in body3)
-    check("JS wires the exclude box to a handler", "x.addEventListener('input'" in render.JS)
-    check("reset clears the exclude box", "x.value=''" in render.JS)
+    check("exclusion dropdown rendered", 'id="excl-dd"' in body3 and "<details" in body3)
+    check("dropdown options are checkboxes",
+          body3.count('type="checkbox" data-excl=') >= 1, "no checkboxes emitted")
+    check("summary has a selected-count slot", 'id="excl-count"' in body3)
     check("topic chips still render", 'data-topic="Streaming &amp; Kafka"' in body3)
-    # Topic filtering is wired through this exact selector; if the attribute or
-    # the selector drifts, clicking a topic chip silently does nothing.
+    # Filtering is wired through these exact selectors; if an attribute or the
+    # selector drifts, clicking a control silently does nothing.
     check("JS selects topic chips by data-topic", ".chip[data-topic]" in render.JS)
-    check("JS selects hide chips by .chip.hide", ".chip.hide" in render.JS)
+    check("JS reads the exclusion checkboxes", "input[type=checkbox][data-excl]" in render.JS)
+    check("reset unticks the checkboxes", "b.checked=false" in render.JS)
 
-    # A hide chip whose key no card carries would be a dead toggle in the UI.
-    chip_keys = re.findall(r'class="chip hide"[^>]*data-excl="([^"]*)"', body3)
+    # An option whose key no card carries would be a dead checkbox in the UI.
+    # Anchored on data-cfp so only card attributes match, not the checkboxes.
+    opt_keys = re.findall(r'<input type="checkbox" data-excl="([^"]*)"', body3)
     card_keys: set = set()
-    for v in re.findall(r'data-excl="([^"]*)"', body3):
+    for v in re.findall(r'data-cfp="[^"]*" data-excl="([^"]*)"', body3):
         card_keys.update(k for k in v.split("|") if k)
-    check("hide chips rendered for country and online", bool(chip_keys), "none rendered")
-    check("every hide chip targets a key a card actually has",
-          all(c in card_keys for c in chip_keys),
-          f"orphans: {[c for c in chip_keys if c not in card_keys]}")
+    check("dropdown lists country and online", bool(opt_keys), "none rendered")
+    check("every dropdown option matches a key a card carries",
+          all(c in card_keys for c in opt_keys),
+          f"orphans: {[c for c in opt_keys if c not in card_keys]}")
+    check("Online sorted to the top", bool(opt_keys) and opt_keys[0] == "Online",
+          f"first={opt_keys[:1]}")
 
     print("\nCountry normalisation")
     from model import normalize_country

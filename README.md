@@ -29,11 +29,11 @@ Client-side filters run over the rendered HTML; nothing is fetched at view time.
 **Inclusion** — topic chips, a "CFP open only" toggle, and a free-text search
 over name, city, source and tags.
 
-**Exclusion** — the second box takes comma-separated terms (`online, berlin,
-singapore`) and hides anything matching, plus a row of one-click **Hide** chips
-for country and online-ness. A running count shows how many cards your
-exclusions removed, and `reset` clears both directions. Topic, search and
-exclusion combine: you can narrow to `kafka` and still exclude `online`.
+**Exclusion** — an **Exclude** dropdown of checkboxes: one per country, plus
+Online, each labelled with how many events it would hide. Tick as many as you
+want; the summary reports how many are selected and a running count shows how
+many cards the exclusions removed. Topic, search and exclusion combine — narrow
+to `kafka` and still exclude `online`.
 
 ---
 

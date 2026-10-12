@@ -48,8 +48,21 @@ input[type=search].excl{border-color:color-mix(in srgb,var(--danger) 45%,var(--l
 .chip .ct{opacity:.6;font-size:11px}
 .chip[aria-pressed=true]{border-color:var(--accent);color:var(--accent);
   background:color-mix(in srgb,var(--accent) 12%,var(--panel))}
-.chip.hide[aria-pressed=true]{border-color:var(--danger);color:var(--danger);
-  background:color-mix(in srgb,var(--danger) 12%,var(--panel));text-decoration:line-through}
+.dd{position:relative;display:inline-block}
+.dd>summary{list-style:none;cursor:pointer;background:var(--panel);border:1px solid var(--line);
+  color:var(--muted);padding:5px 12px;font-size:12.5px;user-select:none}
+.dd>summary::-webkit-details-marker{display:none}
+.dd>summary::after{content:" ▾";opacity:.65}
+.dd[open]>summary{border-color:var(--accent);color:var(--accent)}
+.dd.active>summary{border-color:var(--danger);color:var(--danger)}
+.ddmenu{position:absolute;z-index:20;top:calc(100% + 6px);left:0;min-width:230px;
+  background:var(--panel2);border:1px solid var(--line);padding:7px;
+  max-height:58vh;overflow:auto;display:flex;flex-direction:column}
+.ddmenu label{display:flex;align-items:center;gap:9px;padding:6px 8px;font-size:13px;
+  color:var(--text);cursor:pointer;white-space:nowrap}
+.ddmenu label:hover{background:var(--panel)}
+.ddmenu .ct{margin-left:auto;color:var(--muted);font-size:11.5px}
+.ddmenu input{margin:0;accent-color:var(--accent)}
 .hiddennote{color:var(--danger);font-size:12.5px}
 .month{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;
   margin:22px 0 9px;border-bottom:1px dashed var(--line);padding-bottom:5px}
@@ -91,14 +104,10 @@ footer ul{margin:8px 0 0;padding-left:18px}
 JS = """
 const cards=[...document.querySelectorAll('.card')];
 const q=document.getElementById('q');
-const x=document.getElementById('x');
+const boxes=[...document.querySelectorAll('input[type=checkbox][data-excl]')];
 let topics=new Set(), cfpOnly=false, hideKeys=new Set();
-function exTerms(){
-  return (x.value||'').toLowerCase().split(',').map(s=>s.trim()).filter(Boolean);
-}
 function apply(){
   const term=(q.value||'').trim().toLowerCase();
-  const ex=exTerms();
   let shown=0, hidden=0;
   cards.forEach(c=>{
     const cardTopics=(c.dataset.topics||'').split('|').filter(Boolean);
@@ -106,10 +115,7 @@ function apply(){
     const okCfp=!cfpOnly||['open','closing-soon'].includes(c.dataset.cfp);
     const okTerm=!term||(c.dataset.text||'').includes(term);
     const keys=(c.dataset.excl||'').split('|').filter(Boolean);
-    const okKey=!keys.some(k=>hideKeys.has(k));
-    const hay=(c.dataset.text||'')+' '+(c.dataset.excl||'').toLowerCase();
-    const okEx=!ex.some(t=>hay.includes(t));
-    const excluded=!okKey||!okEx;
+    const excluded=keys.some(k=>hideKeys.has(k));
     const on=okTopic&&okCfp&&okTerm&&!excluded;
     c.style.display=on?'':'none';
     if(on){shown++;}else if(excluded){hidden++;}
@@ -125,6 +131,11 @@ function apply(){
   document.getElementById('noshow').style.display=shown?'none':'block';
   document.getElementById('hiddennote').textContent=
     hidden?hidden+' hidden by your exclusions':'';
+  const n=hideKeys.size;
+  const cnt=document.getElementById('excl-count');
+  if(cnt)cnt.textContent=n?' \\u2014 '+n+' selected':'';
+  const dd=document.getElementById('excl-dd');
+  if(dd)dd.classList.toggle('active',n>0);
 }
 function tap(el,fn){
   if(!el)return;
@@ -139,23 +150,27 @@ document.querySelectorAll('.chip[data-topic]').forEach(ch=>tap(ch,()=>{
   ch.setAttribute('aria-pressed',topics.has(t));
   apply();
 }));
-document.querySelectorAll('.chip.hide').forEach(ch=>tap(ch,()=>{
-  const k=ch.dataset.excl;
-  if(hideKeys.has(k)){hideKeys.delete(k);}else{hideKeys.add(k);}
-  ch.setAttribute('aria-pressed',hideKeys.has(k));
-  apply();
-}));
+document.querySelectorAll('input[type=checkbox][data-excl]').forEach(b=>{
+  b.addEventListener('change',()=>{
+    if(b.checked){hideKeys.add(b.dataset.excl);}else{hideKeys.delete(b.dataset.excl);}
+    apply();
+  });
+});
 tap(document.querySelector('.chip.cfp'),()=>{
   cfpOnly=!cfpOnly;
   document.querySelector('.chip.cfp').setAttribute('aria-pressed',cfpOnly);
   apply();
 });
 q.addEventListener('input',apply);
-x.addEventListener('input',apply);
 tap(document.getElementById('reset'),()=>{
-  topics.clear();cfpOnly=false;hideKeys.clear();q.value='';x.value='';
+  topics.clear();cfpOnly=false;hideKeys.clear();q.value='';
+  boxes.forEach(b=>{b.checked=false;});
   document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed','false'));
   apply();
+});
+document.addEventListener('click',ev=>{
+  const dd=document.getElementById('excl-dd');
+  if(dd&&dd.open&&!dd.contains(ev.target))dd.open=false;
 });
 apply();
 """
@@ -351,10 +366,16 @@ def render(events: list[Event], meta: dict) -> str:
     for ev in events:
         for k in _excl_keys(ev):
             key_counts[k] += 1
-    hide_chips = "".join(
-        f'<span class="chip hide" role="button" tabindex="0" aria-pressed="false" '
-        f'data-excl="{e(k)}">Hide {e(k)} <span class="ct">{n}</span></span>'
-        for k, n in key_counts.most_common(12))
+    # Online first (the exclusion people reach for most), then by how many
+    # events each option would hide, so the ones that matter sit at the top.
+    ordered_keys = sorted(key_counts.items(),
+                          key=lambda kv: (kv[0] != "Online", -kv[1], kv[0]))
+    dd_opts = "".join(
+        f'<label><input type="checkbox" data-excl="{e(k)}"> {e(k)}'
+        f'<span class="ct">{n}</span></label>' for k, n in ordered_keys)
+    excl_dd = ('<details class="dd" id="excl-dd">'
+               '<summary>Exclude<span id="excl-count"></span></summary>'
+               f'<div class="ddmenu">{dd_opts}</div></details>') if dd_opts else ""
 
     # Each event renders in exactly one section — a flagship with confirmed dates
     # belongs in the calendar, not repeated in a watchlist.
@@ -415,13 +436,11 @@ def render(events: list[Event], meta: dict) -> str:
 <div class="controls">
   <div class="ctlrow">
     <input id="q" type="search" placeholder="Filter by name, city or source…" aria-label="Filter events">
-    <input id="x" class="excl" type="search" placeholder="Exclude… comma separated, e.g. Online, Berlin, Singapore" aria-label="Exclude events">
     <span class="chip cfp" role="button" tabindex="0" aria-pressed="false">CFP open only</span>
     <span class="chip" id="reset" role="button" tabindex="0">reset</span>
   </div>
   <div class="ctlrow"><span class="ctlbl">Topic</span>{chips}</div>
-  <div class="ctlrow"><span class="ctlbl">Hide</span>{hide_chips}
-    <span id="hiddennote" class="hiddennote"></span></div>
+  <div class="ctlrow">{excl_dd}<span id="hiddennote" class="hiddennote"></span></div>
 </div>
 <div id="noshow" class="empty" style="display:none">Nothing matches those filters.</div>
 
