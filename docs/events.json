@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-12 11:07",
-  "window_start": "2026-10-12",
-  "window_end": "2027-01-12",
+  "generated_at": "2026-10-13 03:15",
+  "window_start": "2026-10-13",
+  "window_end": "2027-01-13",
   "count": 26,
   "warnings": [],
   "events": [
@@ -100,7 +100,7 @@
       "anchor": false,
       "location": "Johannesburg, South Africa",
       "date_label": "Oct 31, 2026",
-      "cfp_days_left": -12,
+      "cfp_days_left": -13,
       "cfp_state": "closed",
       "id": "f5c94978453eb481"
     },
@@ -256,7 +256,7 @@
       "anchor": false,
       "location": "Budapest, Hungary",
       "date_label": "Nov 16\u201318, 2026",
-      "cfp_days_left": -162,
+      "cfp_days_left": -163,
       "cfp_state": "closed",
       "id": "d701a608fe6c73b5"
     },
@@ -379,7 +379,7 @@
       "anchor": false,
       "location": "Vilnius, Lithuania",
       "date_label": "Nov 24\u201327, 2026",
-      "cfp_days_left": 42,
+      "cfp_days_left": 41,
       "cfp_state": "open",
       "id": "5c70286b9661b7ea"
     },
@@ -439,7 +439,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 1, 2026",
-      "cfp_days_left": 80,
+      "cfp_days_left": 79,
       "cfp_state": "open",
       "id": "6345b6b291f66e55"
     },
@@ -470,7 +470,7 @@
       "anchor": false,
       "location": "Houston, TX, USA",
       "date_label": "Dec 4\u20135, 2026",
-      "cfp_days_left": -8,
+      "cfp_days_left": -9,
       "cfp_state": "closed",
       "id": "34d62335456f7920"
     },
@@ -501,7 +501,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 11\u201312, 2026",
-      "cfp_days_left": 19,
+      "cfp_days_left": 18,
       "cfp_state": "open",
       "id": "87701bd88e37cb15"
     },
@@ -561,7 +561,7 @@
       "anchor": false,
       "location": "Redwood Shores, CA, USA",
       "date_label": "Apr 13\u201315, 2027",
-      "cfp_days_left": 26,
+      "cfp_days_left": 25,
       "cfp_state": "open",
       "id": "4089336412fcd149"
     },
