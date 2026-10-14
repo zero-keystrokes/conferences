@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-10-13 03:15",
-  "window_start": "2026-10-13",
-  "window_end": "2027-01-13",
-  "count": 26,
+  "generated_at": "2026-10-14 03:15",
+  "window_start": "2026-10-14",
+  "window_end": "2027-01-14",
+  "count": 27,
   "warnings": [],
   "events": [
     {
@@ -74,6 +74,37 @@
       "id": "d33ee55325469798"
     },
     {
+      "name": "AWS Partner Showcase (SF) - Temporal, Arize, Databricks",
+      "url": "https://www.meetup.com/aittg-sfsv/events/316967074/",
+      "start": "2026-10-29",
+      "end": null,
+      "city": "San Francisco",
+      "country": "USA",
+      "online": false,
+      "kind": "meetup",
+      "source": "meetup",
+      "source_url": "https://www.meetup.com/find/",
+      "cfp_url": "",
+      "cfp_close": null,
+      "cfp_open": null,
+      "cfp_note": "",
+      "description": "",
+      "tags": [
+        "Data Engineering"
+      ],
+      "score": 10.0,
+      "matched": [
+        "databricks"
+      ],
+      "verified": false,
+      "anchor": false,
+      "location": "San Francisco, USA",
+      "date_label": "Oct 29, 2026",
+      "cfp_days_left": null,
+      "cfp_state": "unknown",
+      "id": "18c22b957d45cd63"
+    },
+    {
       "name": "Data and AI Community Day - Johannesburg 31 October 2026",
       "url": "https://www.dataandaicommunity.co.za/events/JHB-202610.html",
       "start": "2026-10-31",
@@ -100,7 +131,7 @@
       "anchor": false,
       "location": "Johannesburg, South Africa",
       "date_label": "Oct 31, 2026",
-      "cfp_days_left": -13,
+      "cfp_days_left": -14,
       "cfp_state": "closed",
       "id": "f5c94978453eb481"
     },
@@ -256,7 +287,7 @@
       "anchor": false,
       "location": "Budapest, Hungary",
       "date_label": "Nov 16\u201318, 2026",
-      "cfp_days_left": -163,
+      "cfp_days_left": -164,
       "cfp_state": "closed",
       "id": "d701a608fe6c73b5"
     },
@@ -379,7 +410,7 @@
       "anchor": false,
       "location": "Vilnius, Lithuania",
       "date_label": "Nov 24\u201327, 2026",
-      "cfp_days_left": 41,
+      "cfp_days_left": 40,
       "cfp_state": "open",
       "id": "5c70286b9661b7ea"
     },
@@ -439,7 +470,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 1, 2026",
-      "cfp_days_left": 79,
+      "cfp_days_left": 78,
       "cfp_state": "open",
       "id": "6345b6b291f66e55"
     },
@@ -470,7 +501,7 @@
       "anchor": false,
       "location": "Houston, TX, USA",
       "date_label": "Dec 4\u20135, 2026",
-      "cfp_days_left": -9,
+      "cfp_days_left": -10,
       "cfp_state": "closed",
       "id": "34d62335456f7920"
     },
@@ -501,7 +532,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 11\u201312, 2026",
-      "cfp_days_left": 18,
+      "cfp_days_left": 17,
       "cfp_state": "open",
       "id": "87701bd88e37cb15"
     },
@@ -561,7 +592,7 @@
       "anchor": false,
       "location": "Redwood Shores, CA, USA",
       "date_label": "Apr 13\u201315, 2027",
-      "cfp_days_left": 25,
+      "cfp_days_left": 24,
       "cfp_state": "open",
       "id": "4089336412fcd149"
     },
