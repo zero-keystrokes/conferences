@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-10-14 03:15",
-  "window_start": "2026-10-14",
-  "window_end": "2027-01-14",
-  "count": 27,
+  "generated_at": "2026-10-15 03:15",
+  "window_start": "2026-10-15",
+  "window_end": "2027-01-15",
+  "count": 28,
   "warnings": [],
   "events": [
     {
@@ -131,7 +131,7 @@
       "anchor": false,
       "location": "Johannesburg, South Africa",
       "date_label": "Oct 31, 2026",
-      "cfp_days_left": -14,
+      "cfp_days_left": -15,
       "cfp_state": "closed",
       "id": "f5c94978453eb481"
     },
@@ -287,7 +287,7 @@
       "anchor": false,
       "location": "Budapest, Hungary",
       "date_label": "Nov 16\u201318, 2026",
-      "cfp_days_left": -164,
+      "cfp_days_left": -165,
       "cfp_state": "closed",
       "id": "d701a608fe6c73b5"
     },
@@ -410,7 +410,7 @@
       "anchor": false,
       "location": "Vilnius, Lithuania",
       "date_label": "Nov 24\u201327, 2026",
-      "cfp_days_left": 40,
+      "cfp_days_left": 39,
       "cfp_state": "open",
       "id": "5c70286b9661b7ea"
     },
@@ -470,7 +470,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 1, 2026",
-      "cfp_days_left": 78,
+      "cfp_days_left": 77,
       "cfp_state": "open",
       "id": "6345b6b291f66e55"
     },
@@ -501,7 +501,7 @@
       "anchor": false,
       "location": "Houston, TX, USA",
       "date_label": "Dec 4\u20135, 2026",
-      "cfp_days_left": -10,
+      "cfp_days_left": -11,
       "cfp_state": "closed",
       "id": "34d62335456f7920"
     },
@@ -532,7 +532,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 11\u201312, 2026",
-      "cfp_days_left": 17,
+      "cfp_days_left": 16,
       "cfp_state": "open",
       "id": "87701bd88e37cb15"
     },
@@ -592,7 +592,7 @@
       "anchor": false,
       "location": "Redwood Shores, CA, USA",
       "date_label": "Apr 13\u201315, 2027",
-      "cfp_days_left": 24,
+      "cfp_days_left": 23,
       "cfp_state": "open",
       "id": "4089336412fcd149"
     },
@@ -624,6 +624,37 @@
       "cfp_days_left": null,
       "cfp_state": "unknown",
       "id": "3b45ed41c1eb20ec"
+    },
+    {
+      "name": "Domain-Driven Design Europe and Data Mesh Live 2027",
+      "url": "https://dddeurope.com/",
+      "start": "2027-05-31",
+      "end": "2027-06-04",
+      "city": "Amsterdam",
+      "country": "Netherlands",
+      "online": false,
+      "kind": "conference",
+      "source": "developers.events",
+      "source_url": "https://developers.events/",
+      "cfp_url": "https://sessionize.com/aardling27/",
+      "cfp_close": "2027-01-17",
+      "cfp_open": null,
+      "cfp_note": "",
+      "description": "",
+      "tags": [
+        "Data Engineering"
+      ],
+      "score": 10.0,
+      "matched": [
+        "data mesh"
+      ],
+      "verified": false,
+      "anchor": false,
+      "location": "Amsterdam, Netherlands",
+      "date_label": "May 31, 2027 \u2013 Jun 4, 2027",
+      "cfp_days_left": 94,
+      "cfp_state": "open",
+      "id": "eefac07abe5e79b4"
     },
     {
       "name": "Databricks Data + AI Summit 2027",
