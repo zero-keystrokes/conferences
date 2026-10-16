@@ -1,45 +1,10 @@
 {
-  "generated_at": "2026-10-15 03:15",
-  "window_start": "2026-10-15",
-  "window_end": "2027-01-15",
+  "generated_at": "2026-10-16 03:15",
+  "window_start": "2026-10-16",
+  "window_end": "2027-01-16",
   "count": 28,
   "warnings": [],
   "events": [
-    {
-      "name": "2nd International Conference on Artificial Intelligence and Big Data Analytics",
-      "url": "https://vartusconferences.com/aibda",
-      "start": "2026-10-15",
-      "end": "2026-10-16",
-      "city": "Singapore",
-      "country": "Singapore",
-      "online": false,
-      "kind": "conference",
-      "source": "conference-data + developers.events",
-      "source_url": "https://developers.events/",
-      "cfp_url": "",
-      "cfp_close": null,
-      "cfp_open": null,
-      "cfp_note": "",
-      "description": "",
-      "tags": [
-        "Data Engineering",
-        "Analytics & Warehousing",
-        "data"
-      ],
-      "score": 16.0,
-      "matched": [
-        "big data",
-        "analytics",
-        "data analytics"
-      ],
-      "verified": false,
-      "anchor": false,
-      "location": "Singapore, Singapore",
-      "date_label": "Oct 15\u201316, 2026",
-      "cfp_days_left": null,
-      "cfp_state": "unknown",
-      "id": "aee12c23f5e8c894"
-    },
     {
       "name": "Webinar: Optimizing Data Latency and Query Latency in Open Table Formats",
       "url": "https://www.meetup.com/apache-pinot/events/316801653/",
@@ -74,8 +39,39 @@
       "id": "d33ee55325469798"
     },
     {
+      "name": "AI Agents for Data Engineering Workflows: Best Practices & Challenges",
+      "url": "https://www.meetup.com/bay-area-machine-learning-meetups/events/317000875/",
+      "start": "2026-10-27",
+      "end": null,
+      "city": "",
+      "country": "",
+      "online": true,
+      "kind": "meetup",
+      "source": "meetup",
+      "source_url": "https://www.meetup.com/find/",
+      "cfp_url": "",
+      "cfp_close": null,
+      "cfp_open": null,
+      "cfp_note": "",
+      "description": "",
+      "tags": [
+        "Data Engineering"
+      ],
+      "score": 10.0,
+      "matched": [
+        "data engineering"
+      ],
+      "verified": false,
+      "anchor": false,
+      "location": "Online",
+      "date_label": "Oct 27, 2026",
+      "cfp_days_left": null,
+      "cfp_state": "unknown",
+      "id": "5f3780b957231da5"
+    },
+    {
       "name": "AWS Partner Showcase (SF) - Temporal, Arize, Databricks",
-      "url": "https://www.meetup.com/aittg-sfsv/events/316967074/",
+      "url": "https://www.meetup.com/sfbay-ai/events/316967084/",
       "start": "2026-10-29",
       "end": null,
       "city": "San Francisco",
@@ -131,7 +127,7 @@
       "anchor": false,
       "location": "Johannesburg, South Africa",
       "date_label": "Oct 31, 2026",
-      "cfp_days_left": -15,
+      "cfp_days_left": -16,
       "cfp_state": "closed",
       "id": "f5c94978453eb481"
     },
@@ -287,7 +283,7 @@
       "anchor": false,
       "location": "Budapest, Hungary",
       "date_label": "Nov 16\u201318, 2026",
-      "cfp_days_left": -165,
+      "cfp_days_left": -166,
       "cfp_state": "closed",
       "id": "d701a608fe6c73b5"
     },
@@ -410,7 +406,7 @@
       "anchor": false,
       "location": "Vilnius, Lithuania",
       "date_label": "Nov 24\u201327, 2026",
-      "cfp_days_left": 39,
+      "cfp_days_left": 38,
       "cfp_state": "open",
       "id": "5c70286b9661b7ea"
     },
@@ -470,7 +466,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 1, 2026",
-      "cfp_days_left": 77,
+      "cfp_days_left": 76,
       "cfp_state": "open",
       "id": "6345b6b291f66e55"
     },
@@ -501,7 +497,7 @@
       "anchor": false,
       "location": "Houston, TX, USA",
       "date_label": "Dec 4\u20135, 2026",
-      "cfp_days_left": -11,
+      "cfp_days_left": -12,
       "cfp_state": "closed",
       "id": "34d62335456f7920"
     },
@@ -532,7 +528,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 11\u201312, 2026",
-      "cfp_days_left": 16,
+      "cfp_days_left": 15,
       "cfp_state": "open",
       "id": "87701bd88e37cb15"
     },
@@ -592,7 +588,7 @@
       "anchor": false,
       "location": "Redwood Shores, CA, USA",
       "date_label": "Apr 13\u201315, 2027",
-      "cfp_days_left": 23,
+      "cfp_days_left": 22,
       "cfp_state": "open",
       "id": "4089336412fcd149"
     },
@@ -652,7 +648,7 @@
       "anchor": false,
       "location": "Amsterdam, Netherlands",
       "date_label": "May 31, 2027 \u2013 Jun 4, 2027",
-      "cfp_days_left": 94,
+      "cfp_days_left": 93,
       "cfp_state": "open",
       "id": "eefac07abe5e79b4"
     },
