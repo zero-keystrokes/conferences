@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-10-20 03:15",
-  "window_start": "2026-10-20",
-  "window_end": "2027-01-20",
-  "count": 28,
+  "generated_at": "2026-10-21 03:15",
+  "window_start": "2026-10-21",
+  "window_end": "2027-01-21",
+  "count": 29,
   "warnings": [],
   "events": [
     {
@@ -127,7 +127,7 @@
       "anchor": false,
       "location": "Johannesburg, South Africa",
       "date_label": "Oct 31, 2026",
-      "cfp_days_left": -20,
+      "cfp_days_left": -21,
       "cfp_state": "closed",
       "id": "f5c94978453eb481"
     },
@@ -283,7 +283,7 @@
       "anchor": false,
       "location": "Budapest, Hungary",
       "date_label": "Nov 16\u201318, 2026",
-      "cfp_days_left": -170,
+      "cfp_days_left": -171,
       "cfp_state": "closed",
       "id": "d701a608fe6c73b5"
     },
@@ -406,7 +406,7 @@
       "anchor": false,
       "location": "Vilnius, Lithuania",
       "date_label": "Nov 24\u201327, 2026",
-      "cfp_days_left": 34,
+      "cfp_days_left": 33,
       "cfp_state": "open",
       "id": "5c70286b9661b7ea"
     },
@@ -466,7 +466,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 1, 2026",
-      "cfp_days_left": 72,
+      "cfp_days_left": 71,
       "cfp_state": "open",
       "id": "6345b6b291f66e55"
     },
@@ -497,9 +497,43 @@
       "anchor": false,
       "location": "Houston, TX, USA",
       "date_label": "Dec 4\u20135, 2026",
-      "cfp_days_left": -16,
+      "cfp_days_left": -17,
       "cfp_state": "closed",
       "id": "34d62335456f7920"
+    },
+    {
+      "name": "[In-Person + Online] Stream Processing with Apache Kafka and Flink",
+      "url": "https://www.meetup.com/stream-processing-meetup-linkedin/events/317066673/",
+      "start": "2026-12-09",
+      "end": null,
+      "city": "",
+      "country": "",
+      "online": true,
+      "kind": "meetup",
+      "source": "meetup",
+      "source_url": "https://www.meetup.com/find/",
+      "cfp_url": "",
+      "cfp_close": null,
+      "cfp_open": null,
+      "cfp_note": "",
+      "description": "",
+      "tags": [
+        "Streaming & Kafka"
+      ],
+      "score": 12.0,
+      "matched": [
+        "apache kafka",
+        "kafka",
+        "flink",
+        "stream processing"
+      ],
+      "verified": false,
+      "anchor": false,
+      "location": "Online",
+      "date_label": "Dec 9, 2026",
+      "cfp_days_left": null,
+      "cfp_state": "unknown",
+      "id": "fef92a9604de69b1"
     },
     {
       "name": "Christmas Power Data Platform 2026",
@@ -528,7 +562,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 11\u201312, 2026",
-      "cfp_days_left": 11,
+      "cfp_days_left": 10,
       "cfp_state": "closing-soon",
       "id": "87701bd88e37cb15"
     },
@@ -588,7 +622,7 @@
       "anchor": false,
       "location": "Redwood Shores, CA, USA",
       "date_label": "Apr 13\u201315, 2027",
-      "cfp_days_left": 18,
+      "cfp_days_left": 17,
       "cfp_state": "open",
       "id": "4089336412fcd149"
     },
@@ -648,7 +682,7 @@
       "anchor": false,
       "location": "Amsterdam, Netherlands",
       "date_label": "May 31, 2027 \u2013 Jun 4, 2027",
-      "cfp_days_left": 89,
+      "cfp_days_left": 88,
       "cfp_state": "open",
       "id": "eefac07abe5e79b4"
     },
