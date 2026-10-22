@@ -1,43 +1,10 @@
 {
-  "generated_at": "2026-10-21 03:15",
-  "window_start": "2026-10-21",
-  "window_end": "2027-01-21",
-  "count": 29,
+  "generated_at": "2026-10-22 03:15",
+  "window_start": "2026-10-22",
+  "window_end": "2027-01-22",
+  "count": 28,
   "warnings": [],
   "events": [
-    {
-      "name": "Webinar: Optimizing Data Latency and Query Latency in Open Table Formats",
-      "url": "https://www.meetup.com/apache-pinot/events/316801653/",
-      "start": "2026-10-21",
-      "end": null,
-      "city": "",
-      "country": "",
-      "online": true,
-      "kind": "meetup",
-      "source": "meetup",
-      "source_url": "https://www.meetup.com/find/",
-      "cfp_url": "",
-      "cfp_close": null,
-      "cfp_open": null,
-      "cfp_note": "",
-      "description": "",
-      "tags": [
-        "Lakehouse & Table Formats",
-        "Analytics & Warehousing"
-      ],
-      "score": 14.0,
-      "matched": [
-        "open table format",
-        "apache pinot"
-      ],
-      "verified": false,
-      "anchor": false,
-      "location": "Online",
-      "date_label": "Oct 21, 2026",
-      "cfp_days_left": null,
-      "cfp_state": "unknown",
-      "id": "d33ee55325469798"
-    },
     {
       "name": "AI Agents for Data Engineering Workflows: Best Practices & Challenges",
       "url": "https://www.meetup.com/bay-area-machine-learning-meetups/events/317000875/",
@@ -70,8 +37,8 @@
       "id": "5f3780b957231da5"
     },
     {
-      "name": "AWS Partner Showcase (SF) - Temporal, Arize, Databricks",
-      "url": "https://www.meetup.com/san-francisco-enterprise-ai/events/316967087/",
+      "name": "[SF] AWS Partner Showcase - Temporal, Arize, Databricks",
+      "url": "https://www.meetup.com/aittg-sfsv/events/316967074/",
       "start": "2026-10-29",
       "end": null,
       "city": "San Francisco",
@@ -98,7 +65,7 @@
       "date_label": "Oct 29, 2026",
       "cfp_days_left": null,
       "cfp_state": "unknown",
-      "id": "18c22b957d45cd63"
+      "id": "ca5dc5dc29e07497"
     },
     {
       "name": "Data and AI Community Day - Johannesburg 31 October 2026",
@@ -127,7 +94,7 @@
       "anchor": false,
       "location": "Johannesburg, South Africa",
       "date_label": "Oct 31, 2026",
-      "cfp_days_left": -21,
+      "cfp_days_left": -22,
       "cfp_state": "closed",
       "id": "f5c94978453eb481"
     },
@@ -283,7 +250,7 @@
       "anchor": false,
       "location": "Budapest, Hungary",
       "date_label": "Nov 16\u201318, 2026",
-      "cfp_days_left": -171,
+      "cfp_days_left": -172,
       "cfp_state": "closed",
       "id": "d701a608fe6c73b5"
     },
@@ -406,7 +373,7 @@
       "anchor": false,
       "location": "Vilnius, Lithuania",
       "date_label": "Nov 24\u201327, 2026",
-      "cfp_days_left": 33,
+      "cfp_days_left": 32,
       "cfp_state": "open",
       "id": "5c70286b9661b7ea"
     },
@@ -466,7 +433,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 1, 2026",
-      "cfp_days_left": 71,
+      "cfp_days_left": 70,
       "cfp_state": "open",
       "id": "6345b6b291f66e55"
     },
@@ -497,7 +464,7 @@
       "anchor": false,
       "location": "Houston, TX, USA",
       "date_label": "Dec 4\u20135, 2026",
-      "cfp_days_left": -17,
+      "cfp_days_left": -18,
       "cfp_state": "closed",
       "id": "34d62335456f7920"
     },
@@ -562,7 +529,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 11\u201312, 2026",
-      "cfp_days_left": 10,
+      "cfp_days_left": 9,
       "cfp_state": "closing-soon",
       "id": "87701bd88e37cb15"
     },
@@ -622,7 +589,7 @@
       "anchor": false,
       "location": "Redwood Shores, CA, USA",
       "date_label": "Apr 13\u201315, 2027",
-      "cfp_days_left": 17,
+      "cfp_days_left": 16,
       "cfp_state": "open",
       "id": "4089336412fcd149"
     },
@@ -682,7 +649,7 @@
       "anchor": false,
       "location": "Amsterdam, Netherlands",
       "date_label": "May 31, 2027 \u2013 Jun 4, 2027",
-      "cfp_days_left": 88,
+      "cfp_days_left": 87,
       "cfp_state": "open",
       "id": "eefac07abe5e79b4"
     },
