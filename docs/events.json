@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-22 03:15",
-  "window_start": "2026-10-22",
-  "window_end": "2027-01-22",
+  "generated_at": "2026-10-23 03:15",
+  "window_start": "2026-10-23",
+  "window_end": "2027-01-23",
   "count": 28,
   "warnings": [],
   "events": [
@@ -37,8 +37,8 @@
       "id": "5f3780b957231da5"
     },
     {
-      "name": "[SF] AWS Partner Showcase - Temporal, Arize, Databricks",
-      "url": "https://www.meetup.com/aittg-sfsv/events/316967074/",
+      "name": "AWS Partner Showcase (SF) - Temporal, Arize, Databricks",
+      "url": "https://www.meetup.com/san-francisco-enterprise-ai/events/316967087/",
       "start": "2026-10-29",
       "end": null,
       "city": "San Francisco",
@@ -65,7 +65,7 @@
       "date_label": "Oct 29, 2026",
       "cfp_days_left": null,
       "cfp_state": "unknown",
-      "id": "ca5dc5dc29e07497"
+      "id": "18c22b957d45cd63"
     },
     {
       "name": "Data and AI Community Day - Johannesburg 31 October 2026",
@@ -94,7 +94,7 @@
       "anchor": false,
       "location": "Johannesburg, South Africa",
       "date_label": "Oct 31, 2026",
-      "cfp_days_left": -22,
+      "cfp_days_left": -23,
       "cfp_state": "closed",
       "id": "f5c94978453eb481"
     },
@@ -250,7 +250,7 @@
       "anchor": false,
       "location": "Budapest, Hungary",
       "date_label": "Nov 16\u201318, 2026",
-      "cfp_days_left": -172,
+      "cfp_days_left": -173,
       "cfp_state": "closed",
       "id": "d701a608fe6c73b5"
     },
@@ -373,7 +373,7 @@
       "anchor": false,
       "location": "Vilnius, Lithuania",
       "date_label": "Nov 24\u201327, 2026",
-      "cfp_days_left": 32,
+      "cfp_days_left": 31,
       "cfp_state": "open",
       "id": "5c70286b9661b7ea"
     },
@@ -433,7 +433,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 1, 2026",
-      "cfp_days_left": 70,
+      "cfp_days_left": 69,
       "cfp_state": "open",
       "id": "6345b6b291f66e55"
     },
@@ -464,7 +464,7 @@
       "anchor": false,
       "location": "Houston, TX, USA",
       "date_label": "Dec 4\u20135, 2026",
-      "cfp_days_left": -18,
+      "cfp_days_left": -19,
       "cfp_state": "closed",
       "id": "34d62335456f7920"
     },
@@ -473,9 +473,9 @@
       "url": "https://www.meetup.com/stream-processing-meetup-linkedin/events/317066673/",
       "start": "2026-12-09",
       "end": null,
-      "city": "",
-      "country": "",
-      "online": true,
+      "city": "Sunnyvale",
+      "country": "USA",
+      "online": false,
       "kind": "meetup",
       "source": "meetup",
       "source_url": "https://www.meetup.com/find/",
@@ -496,7 +496,7 @@
       ],
       "verified": false,
       "anchor": false,
-      "location": "Online",
+      "location": "Sunnyvale, USA",
       "date_label": "Dec 9, 2026",
       "cfp_days_left": null,
       "cfp_state": "unknown",
@@ -529,7 +529,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 11\u201312, 2026",
-      "cfp_days_left": 9,
+      "cfp_days_left": 8,
       "cfp_state": "closing-soon",
       "id": "87701bd88e37cb15"
     },
@@ -589,7 +589,7 @@
       "anchor": false,
       "location": "Redwood Shores, CA, USA",
       "date_label": "Apr 13\u201315, 2027",
-      "cfp_days_left": 16,
+      "cfp_days_left": 15,
       "cfp_state": "open",
       "id": "4089336412fcd149"
     },
@@ -649,7 +649,7 @@
       "anchor": false,
       "location": "Amsterdam, Netherlands",
       "date_label": "May 31, 2027 \u2013 Jun 4, 2027",
-      "cfp_days_left": 87,
+      "cfp_days_left": 86,
       "cfp_state": "open",
       "id": "eefac07abe5e79b4"
     },
