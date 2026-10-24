@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-23 03:15",
-  "window_start": "2026-10-23",
-  "window_end": "2027-01-23",
+  "generated_at": "2026-10-24 03:15",
+  "window_start": "2026-10-24",
+  "window_end": "2027-01-24",
   "count": 28,
   "warnings": [],
   "events": [
@@ -94,7 +94,7 @@
       "anchor": false,
       "location": "Johannesburg, South Africa",
       "date_label": "Oct 31, 2026",
-      "cfp_days_left": -23,
+      "cfp_days_left": -24,
       "cfp_state": "closed",
       "id": "f5c94978453eb481"
     },
@@ -250,7 +250,7 @@
       "anchor": false,
       "location": "Budapest, Hungary",
       "date_label": "Nov 16\u201318, 2026",
-      "cfp_days_left": -173,
+      "cfp_days_left": -174,
       "cfp_state": "closed",
       "id": "d701a608fe6c73b5"
     },
@@ -373,7 +373,7 @@
       "anchor": false,
       "location": "Vilnius, Lithuania",
       "date_label": "Nov 24\u201327, 2026",
-      "cfp_days_left": 31,
+      "cfp_days_left": 30,
       "cfp_state": "open",
       "id": "5c70286b9661b7ea"
     },
@@ -433,7 +433,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 1, 2026",
-      "cfp_days_left": 69,
+      "cfp_days_left": 68,
       "cfp_state": "open",
       "id": "6345b6b291f66e55"
     },
@@ -464,7 +464,7 @@
       "anchor": false,
       "location": "Houston, TX, USA",
       "date_label": "Dec 4\u20135, 2026",
-      "cfp_days_left": -19,
+      "cfp_days_left": -20,
       "cfp_state": "closed",
       "id": "34d62335456f7920"
     },
@@ -529,7 +529,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 11\u201312, 2026",
-      "cfp_days_left": 8,
+      "cfp_days_left": 7,
       "cfp_state": "closing-soon",
       "id": "87701bd88e37cb15"
     },
@@ -589,8 +589,8 @@
       "anchor": false,
       "location": "Redwood Shores, CA, USA",
       "date_label": "Apr 13\u201315, 2027",
-      "cfp_days_left": 15,
-      "cfp_state": "open",
+      "cfp_days_left": 14,
+      "cfp_state": "closing-soon",
       "id": "4089336412fcd149"
     },
     {
@@ -649,7 +649,7 @@
       "anchor": false,
       "location": "Amsterdam, Netherlands",
       "date_label": "May 31, 2027 \u2013 Jun 4, 2027",
-      "cfp_days_left": 86,
+      "cfp_days_left": 85,
       "cfp_state": "open",
       "id": "eefac07abe5e79b4"
     },
