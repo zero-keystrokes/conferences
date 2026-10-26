@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-10-25 03:15",
-  "window_start": "2026-10-25",
-  "window_end": "2027-01-25",
-  "count": 28,
+  "generated_at": "2026-10-26 03:15",
+  "window_start": "2026-10-26",
+  "window_end": "2027-01-26",
+  "count": 29,
   "warnings": [],
   "events": [
     {
@@ -94,7 +94,7 @@
       "anchor": false,
       "location": "Johannesburg, South Africa",
       "date_label": "Oct 31, 2026",
-      "cfp_days_left": -25,
+      "cfp_days_left": -26,
       "cfp_state": "closed",
       "id": "f5c94978453eb481"
     },
@@ -224,6 +224,37 @@
       "id": "202d13ac3e9a0053"
     },
     {
+      "name": "San Francisco dbt Meetup",
+      "url": "https://www.meetup.com/san-francisco-dbt-meetup/events/317136828/",
+      "start": "2026-11-11",
+      "end": null,
+      "city": "Oakland",
+      "country": "USA",
+      "online": false,
+      "kind": "meetup",
+      "source": "meetup",
+      "source_url": "https://www.meetup.com/find/",
+      "cfp_url": "",
+      "cfp_close": null,
+      "cfp_open": null,
+      "cfp_note": "",
+      "description": "",
+      "tags": [
+        "Data Engineering"
+      ],
+      "score": 8.0,
+      "matched": [
+        "dbt"
+      ],
+      "verified": false,
+      "anchor": false,
+      "location": "Oakland, USA",
+      "date_label": "Nov 11, 2026",
+      "cfp_days_left": null,
+      "cfp_state": "unknown",
+      "id": "373693e482591df8"
+    },
+    {
       "name": "Budapest BI & Analytics Forum 2026",
       "url": "https://budapestbi.hu",
       "start": "2026-11-16",
@@ -250,7 +281,7 @@
       "anchor": false,
       "location": "Budapest, Hungary",
       "date_label": "Nov 16\u201318, 2026",
-      "cfp_days_left": -175,
+      "cfp_days_left": -176,
       "cfp_state": "closed",
       "id": "d701a608fe6c73b5"
     },
@@ -373,7 +404,7 @@
       "anchor": false,
       "location": "Vilnius, Lithuania",
       "date_label": "Nov 24\u201327, 2026",
-      "cfp_days_left": 29,
+      "cfp_days_left": 28,
       "cfp_state": "open",
       "id": "5c70286b9661b7ea"
     },
@@ -433,7 +464,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 1, 2026",
-      "cfp_days_left": 67,
+      "cfp_days_left": 66,
       "cfp_state": "open",
       "id": "6345b6b291f66e55"
     },
@@ -464,7 +495,7 @@
       "anchor": false,
       "location": "Houston, TX, USA",
       "date_label": "Dec 4\u20135, 2026",
-      "cfp_days_left": -21,
+      "cfp_days_left": -22,
       "cfp_state": "closed",
       "id": "34d62335456f7920"
     },
@@ -529,7 +560,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 11\u201312, 2026",
-      "cfp_days_left": 6,
+      "cfp_days_left": 5,
       "cfp_state": "closing-soon",
       "id": "87701bd88e37cb15"
     },
@@ -589,7 +620,7 @@
       "anchor": false,
       "location": "Redwood Shores, CA, USA",
       "date_label": "Apr 13\u201315, 2027",
-      "cfp_days_left": 13,
+      "cfp_days_left": 12,
       "cfp_state": "closing-soon",
       "id": "4089336412fcd149"
     },
@@ -649,7 +680,7 @@
       "anchor": false,
       "location": "Amsterdam, Netherlands",
       "date_label": "May 31, 2027 \u2013 Jun 4, 2027",
-      "cfp_days_left": 84,
+      "cfp_days_left": 83,
       "cfp_state": "open",
       "id": "eefac07abe5e79b4"
     },
