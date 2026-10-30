@@ -1,41 +1,10 @@
 {
-  "generated_at": "2026-10-29 03:15",
-  "window_start": "2026-10-29",
-  "window_end": "2027-01-29",
-  "count": 28,
+  "generated_at": "2026-10-30 03:15",
+  "window_start": "2026-10-30",
+  "window_end": "2027-01-30",
+  "count": 27,
   "warnings": [],
   "events": [
-    {
-      "name": "AWS Partner Showcase (SF) - Temporal, Arize, Databricks",
-      "url": "https://www.meetup.com/san-francisco-enterprise-ai/events/316967087/",
-      "start": "2026-10-29",
-      "end": null,
-      "city": "San Francisco",
-      "country": "USA",
-      "online": false,
-      "kind": "meetup",
-      "source": "meetup",
-      "source_url": "https://www.meetup.com/find/",
-      "cfp_url": "",
-      "cfp_close": null,
-      "cfp_open": null,
-      "cfp_note": "",
-      "description": "",
-      "tags": [
-        "Data Engineering"
-      ],
-      "score": 10.0,
-      "matched": [
-        "databricks"
-      ],
-      "verified": false,
-      "anchor": false,
-      "location": "San Francisco, USA",
-      "date_label": "Oct 29, 2026",
-      "cfp_days_left": null,
-      "cfp_state": "unknown",
-      "id": "18c22b957d45cd63"
-    },
     {
       "name": "Data and AI Community Day - Johannesburg 31 October 2026",
       "url": "https://www.dataandaicommunity.co.za/events/JHB-202610.html",
@@ -63,7 +32,7 @@
       "anchor": false,
       "location": "Johannesburg, South Africa",
       "date_label": "Oct 31, 2026",
-      "cfp_days_left": -29,
+      "cfp_days_left": -30,
       "cfp_state": "closed",
       "id": "f5c94978453eb481"
     },
@@ -193,7 +162,7 @@
       "id": "202d13ac3e9a0053"
     },
     {
-      "name": "San Francisco dbt Meetup",
+      "name": "San Francisco dbt Meetup (dbt-charts/Jev models)",
       "url": "https://www.meetup.com/san-francisco-dbt-meetup/events/317136828/",
       "start": "2026-11-11",
       "end": null,
@@ -221,7 +190,7 @@
       "date_label": "Nov 11, 2026",
       "cfp_days_left": null,
       "cfp_state": "unknown",
-      "id": "373693e482591df8"
+      "id": "30e4ba95ab465f88"
     },
     {
       "name": "Budapest BI & Analytics Forum 2026",
@@ -250,7 +219,7 @@
       "anchor": false,
       "location": "Budapest, Hungary",
       "date_label": "Nov 16\u201318, 2026",
-      "cfp_days_left": -179,
+      "cfp_days_left": -180,
       "cfp_state": "closed",
       "id": "d701a608fe6c73b5"
     },
@@ -344,7 +313,7 @@
       "anchor": false,
       "location": "Vilnius, Lithuania",
       "date_label": "Nov 24\u201327, 2026",
-      "cfp_days_left": 25,
+      "cfp_days_left": 24,
       "cfp_state": "open",
       "id": "5c70286b9661b7ea"
     },
@@ -404,7 +373,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 1, 2026",
-      "cfp_days_left": 63,
+      "cfp_days_left": 62,
       "cfp_state": "open",
       "id": "6345b6b291f66e55"
     },
@@ -435,7 +404,7 @@
       "anchor": false,
       "location": "Houston, TX, USA",
       "date_label": "Dec 4\u20135, 2026",
-      "cfp_days_left": -25,
+      "cfp_days_left": -26,
       "cfp_state": "closed",
       "id": "34d62335456f7920"
     },
@@ -500,7 +469,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 11\u201312, 2026",
-      "cfp_days_left": 2,
+      "cfp_days_left": 1,
       "cfp_state": "closing-soon",
       "id": "87701bd88e37cb15"
     },
@@ -560,7 +529,7 @@
       "anchor": false,
       "location": "Redwood Shores, CA, USA",
       "date_label": "Apr 13\u201315, 2027",
-      "cfp_days_left": 9,
+      "cfp_days_left": 8,
       "cfp_state": "closing-soon",
       "id": "4089336412fcd149"
     },
@@ -620,7 +589,7 @@
       "anchor": false,
       "location": "Amsterdam, Netherlands",
       "date_label": "May 31, 2027 \u2013 Jun 4, 2027",
-      "cfp_days_left": 80,
+      "cfp_days_left": 79,
       "cfp_state": "open",
       "id": "eefac07abe5e79b4"
     },
