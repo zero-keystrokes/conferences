@@ -1,72 +1,10 @@
 {
-  "generated_at": "2026-10-31 03:15",
-  "window_start": "2026-10-31",
-  "window_end": "2027-01-31",
-  "count": 27,
+  "generated_at": "2026-11-01 03:15",
+  "window_start": "2026-11-01",
+  "window_end": "2027-02-01",
+  "count": 25,
   "warnings": [],
   "events": [
-    {
-      "name": "Data and AI Community Day - Johannesburg 31 October 2026",
-      "url": "https://www.dataandaicommunity.co.za/events/JHB-202610.html",
-      "start": "2026-10-31",
-      "end": null,
-      "city": "Johannesburg",
-      "country": "South Africa",
-      "online": false,
-      "kind": "conference",
-      "source": "developers.events",
-      "source_url": "https://developers.events/",
-      "cfp_url": "https://sessionize.com/data-and-ai-community-day-johannesburg-oct2026/",
-      "cfp_close": "2026-09-30",
-      "cfp_open": null,
-      "cfp_note": "",
-      "description": "",
-      "tags": [
-        "Data & AI"
-      ],
-      "score": 8.0,
-      "matched": [
-        "data and ai"
-      ],
-      "verified": false,
-      "anchor": false,
-      "location": "Johannesburg, South Africa",
-      "date_label": "Oct 31, 2026",
-      "cfp_days_left": -31,
-      "cfp_state": "closed",
-      "id": "f5c94978453eb481"
-    },
-    {
-      "name": "Entrepreneurs, Innovators and Everybody, Spark Your Creative Genius Poetically!",
-      "url": "https://www.meetup.com/svsei-org/events/316943378/",
-      "start": "2026-11-01",
-      "end": null,
-      "city": "San Jose",
-      "country": "USA",
-      "online": false,
-      "kind": "meetup",
-      "source": "meetup",
-      "source_url": "https://www.meetup.com/find/",
-      "cfp_url": "",
-      "cfp_close": null,
-      "cfp_open": null,
-      "cfp_note": "",
-      "description": "",
-      "tags": [
-        "Data Engineering"
-      ],
-      "score": 6.0,
-      "matched": [
-        "spark"
-      ],
-      "verified": false,
-      "anchor": false,
-      "location": "San Jose, USA",
-      "date_label": "Nov 1, 2026",
-      "cfp_days_left": null,
-      "cfp_state": "unknown",
-      "id": "d8f0e7505bcaf1f8"
-    },
     {
       "name": "Open Source Analytics Conference",
       "url": "https://osacon.io",
@@ -219,7 +157,7 @@
       "anchor": false,
       "location": "Budapest, Hungary",
       "date_label": "Nov 16\u201318, 2026",
-      "cfp_days_left": -181,
+      "cfp_days_left": -182,
       "cfp_state": "closed",
       "id": "d701a608fe6c73b5"
     },
@@ -313,7 +251,7 @@
       "anchor": false,
       "location": "Vilnius, Lithuania",
       "date_label": "Nov 24\u201327, 2026",
-      "cfp_days_left": 23,
+      "cfp_days_left": 22,
       "cfp_state": "open",
       "id": "5c70286b9661b7ea"
     },
@@ -373,7 +311,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 1, 2026",
-      "cfp_days_left": 61,
+      "cfp_days_left": 60,
       "cfp_state": "open",
       "id": "6345b6b291f66e55"
     },
@@ -404,7 +342,7 @@
       "anchor": false,
       "location": "Houston, TX, USA",
       "date_label": "Dec 4\u20135, 2026",
-      "cfp_days_left": -27,
+      "cfp_days_left": -28,
       "cfp_state": "closed",
       "id": "34d62335456f7920"
     },
@@ -469,8 +407,8 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 11\u201312, 2026",
-      "cfp_days_left": 0,
-      "cfp_state": "closing-soon",
+      "cfp_days_left": -1,
+      "cfp_state": "closed",
       "id": "87701bd88e37cb15"
     },
     {
@@ -529,7 +467,7 @@
       "anchor": false,
       "location": "Redwood Shores, CA, USA",
       "date_label": "Apr 13\u201315, 2027",
-      "cfp_days_left": 7,
+      "cfp_days_left": 6,
       "cfp_state": "closing-soon",
       "id": "4089336412fcd149"
     },
@@ -589,7 +527,7 @@
       "anchor": false,
       "location": "Amsterdam, Netherlands",
       "date_label": "May 31, 2027 \u2013 Jun 4, 2027",
-      "cfp_days_left": 78,
+      "cfp_days_left": 77,
       "cfp_state": "open",
       "id": "eefac07abe5e79b4"
     },
