@@ -1,41 +1,10 @@
 {
-  "generated_at": "2026-11-09 03:15",
-  "window_start": "2026-11-09",
-  "window_end": "2027-02-09",
+  "generated_at": "2026-11-10 03:15",
+  "window_start": "2026-11-10",
+  "window_end": "2027-02-10",
   "count": 29,
   "warnings": [],
   "events": [
-    {
-      "name": "Answers you can question: Building a verifiable AI analytics agent",
-      "url": "https://www.meetup.com/datatalks-meetups-global/events/317249449/",
-      "start": "2026-11-09",
-      "end": null,
-      "city": "",
-      "country": "",
-      "online": true,
-      "kind": "meetup",
-      "source": "meetup",
-      "source_url": "https://www.meetup.com/find/",
-      "cfp_url": "",
-      "cfp_close": null,
-      "cfp_open": null,
-      "cfp_note": "",
-      "description": "",
-      "tags": [
-        "Analytics & Warehousing"
-      ],
-      "score": 6.0,
-      "matched": [
-        "analytics"
-      ],
-      "verified": false,
-      "anchor": false,
-      "location": "Online",
-      "date_label": "Nov 9, 2026",
-      "cfp_days_left": null,
-      "cfp_state": "unknown",
-      "id": "800b9f771a10fc1e"
-    },
     {
       "name": "San Francisco dbt Meetup (dbt-charts/Jev models)",
       "url": "https://www.meetup.com/san-francisco-dbt-meetup/events/317136828/",
@@ -156,7 +125,7 @@
       "anchor": false,
       "location": "Budapest, Hungary",
       "date_label": "Nov 16\u201318, 2026",
-      "cfp_days_left": -190,
+      "cfp_days_left": -191,
       "cfp_state": "closed",
       "id": "d701a608fe6c73b5"
     },
@@ -341,9 +310,40 @@
       "anchor": false,
       "location": "Vilnius, Lithuania",
       "date_label": "Nov 24\u201327, 2026",
-      "cfp_days_left": 14,
+      "cfp_days_left": 13,
       "cfp_state": "closing-soon",
       "id": "5c70286b9661b7ea"
+    },
+    {
+      "name": "Entrepreneurs, Innovators and Everybody, Spark Your Creative Genius Poetically!",
+      "url": "https://www.meetup.com/svsei-org/events/317351538/",
+      "start": "2026-11-29",
+      "end": null,
+      "city": "San Jose",
+      "country": "USA",
+      "online": false,
+      "kind": "meetup",
+      "source": "meetup",
+      "source_url": "https://www.meetup.com/find/",
+      "cfp_url": "",
+      "cfp_close": null,
+      "cfp_open": null,
+      "cfp_note": "",
+      "description": "",
+      "tags": [
+        "Data Engineering"
+      ],
+      "score": 6.0,
+      "matched": [
+        "spark"
+      ],
+      "verified": false,
+      "anchor": false,
+      "location": "San Jose, USA",
+      "date_label": "Nov 29, 2026",
+      "cfp_days_left": null,
+      "cfp_state": "unknown",
+      "id": "d8f0e7505bcaf1f8"
     },
     {
       "name": "AWS re:Invent 2026",
@@ -401,7 +401,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 1, 2026",
-      "cfp_days_left": 52,
+      "cfp_days_left": 51,
       "cfp_state": "open",
       "id": "6345b6b291f66e55"
     },
@@ -432,7 +432,7 @@
       "anchor": false,
       "location": "Houston, TX, USA",
       "date_label": "Dec 4\u20135, 2026",
-      "cfp_days_left": -36,
+      "cfp_days_left": -37,
       "cfp_state": "closed",
       "id": "34d62335456f7920"
     },
@@ -528,7 +528,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 11\u201312, 2026",
-      "cfp_days_left": -9,
+      "cfp_days_left": -10,
       "cfp_state": "closed",
       "id": "87701bd88e37cb15"
     },
@@ -588,7 +588,7 @@
       "anchor": false,
       "location": "Redwood Shores, CA, USA",
       "date_label": "Apr 13\u201315, 2027",
-      "cfp_days_left": -2,
+      "cfp_days_left": -3,
       "cfp_state": "closed",
       "id": "4089336412fcd149"
     },
@@ -648,7 +648,7 @@
       "anchor": false,
       "location": "Amsterdam, Netherlands",
       "date_label": "May 31, 2027 \u2013 Jun 4, 2027",
-      "cfp_days_left": 69,
+      "cfp_days_left": 68,
       "cfp_state": "open",
       "id": "eefac07abe5e79b4"
     },
