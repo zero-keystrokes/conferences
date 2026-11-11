@@ -1,41 +1,10 @@
 {
-  "generated_at": "2026-11-10 03:15",
-  "window_start": "2026-11-10",
-  "window_end": "2027-02-10",
-  "count": 29,
+  "generated_at": "2026-11-11 03:15",
+  "window_start": "2026-11-11",
+  "window_end": "2027-02-11",
+  "count": 28,
   "warnings": [],
   "events": [
-    {
-      "name": "San Francisco dbt Meetup (dbt-charts/Jev models)",
-      "url": "https://www.meetup.com/san-francisco-dbt-meetup/events/317136828/",
-      "start": "2026-11-11",
-      "end": null,
-      "city": "Oakland",
-      "country": "USA",
-      "online": false,
-      "kind": "meetup",
-      "source": "meetup",
-      "source_url": "https://www.meetup.com/find/",
-      "cfp_url": "",
-      "cfp_close": null,
-      "cfp_open": null,
-      "cfp_note": "",
-      "description": "",
-      "tags": [
-        "Data Engineering"
-      ],
-      "score": 8.0,
-      "matched": [
-        "dbt"
-      ],
-      "verified": false,
-      "anchor": false,
-      "location": "Oakland, USA",
-      "date_label": "Nov 11, 2026",
-      "cfp_days_left": null,
-      "cfp_state": "unknown",
-      "id": "30e4ba95ab465f88"
-    },
     {
       "name": "Data Engineering Automation in the World of Agentic AI",
       "url": "https://www.meetup.com/usf-data-science-and-ai-speaker-series/events/317280665/",
@@ -125,7 +94,7 @@
       "anchor": false,
       "location": "Budapest, Hungary",
       "date_label": "Nov 16\u201318, 2026",
-      "cfp_days_left": -191,
+      "cfp_days_left": -192,
       "cfp_state": "closed",
       "id": "d701a608fe6c73b5"
     },
@@ -310,7 +279,7 @@
       "anchor": false,
       "location": "Vilnius, Lithuania",
       "date_label": "Nov 24\u201327, 2026",
-      "cfp_days_left": 13,
+      "cfp_days_left": 12,
       "cfp_state": "closing-soon",
       "id": "5c70286b9661b7ea"
     },
@@ -401,7 +370,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 1, 2026",
-      "cfp_days_left": 51,
+      "cfp_days_left": 50,
       "cfp_state": "open",
       "id": "6345b6b291f66e55"
     },
@@ -432,7 +401,7 @@
       "anchor": false,
       "location": "Houston, TX, USA",
       "date_label": "Dec 4\u20135, 2026",
-      "cfp_days_left": -37,
+      "cfp_days_left": -38,
       "cfp_state": "closed",
       "id": "34d62335456f7920"
     },
@@ -528,7 +497,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 11\u201312, 2026",
-      "cfp_days_left": -10,
+      "cfp_days_left": -11,
       "cfp_state": "closed",
       "id": "87701bd88e37cb15"
     },
@@ -588,7 +557,7 @@
       "anchor": false,
       "location": "Redwood Shores, CA, USA",
       "date_label": "Apr 13\u201315, 2027",
-      "cfp_days_left": -3,
+      "cfp_days_left": -4,
       "cfp_state": "closed",
       "id": "4089336412fcd149"
     },
@@ -648,7 +617,7 @@
       "anchor": false,
       "location": "Amsterdam, Netherlands",
       "date_label": "May 31, 2027 \u2013 Jun 4, 2027",
-      "cfp_days_left": 68,
+      "cfp_days_left": 67,
       "cfp_state": "open",
       "id": "eefac07abe5e79b4"
     },
