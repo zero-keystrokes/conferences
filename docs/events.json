@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-11 03:15",
-  "window_start": "2026-11-11",
-  "window_end": "2027-02-11",
+  "generated_at": "2026-11-12 03:16",
+  "window_start": "2026-11-12",
+  "window_end": "2027-02-12",
   "count": 28,
   "warnings": [],
   "events": [
@@ -94,7 +94,7 @@
       "anchor": false,
       "location": "Budapest, Hungary",
       "date_label": "Nov 16\u201318, 2026",
-      "cfp_days_left": -192,
+      "cfp_days_left": -193,
       "cfp_state": "closed",
       "id": "d701a608fe6c73b5"
     },
@@ -279,7 +279,7 @@
       "anchor": false,
       "location": "Vilnius, Lithuania",
       "date_label": "Nov 24\u201327, 2026",
-      "cfp_days_left": 12,
+      "cfp_days_left": 11,
       "cfp_state": "closing-soon",
       "id": "5c70286b9661b7ea"
     },
@@ -370,7 +370,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 1, 2026",
-      "cfp_days_left": 50,
+      "cfp_days_left": 49,
       "cfp_state": "open",
       "id": "6345b6b291f66e55"
     },
@@ -401,7 +401,7 @@
       "anchor": false,
       "location": "Houston, TX, USA",
       "date_label": "Dec 4\u20135, 2026",
-      "cfp_days_left": -38,
+      "cfp_days_left": -39,
       "cfp_state": "closed",
       "id": "34d62335456f7920"
     },
@@ -497,7 +497,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 11\u201312, 2026",
-      "cfp_days_left": -11,
+      "cfp_days_left": -12,
       "cfp_state": "closed",
       "id": "87701bd88e37cb15"
     },
@@ -557,7 +557,7 @@
       "anchor": false,
       "location": "Redwood Shores, CA, USA",
       "date_label": "Apr 13\u201315, 2027",
-      "cfp_days_left": -4,
+      "cfp_days_left": -5,
       "cfp_state": "closed",
       "id": "4089336412fcd149"
     },
@@ -617,7 +617,7 @@
       "anchor": false,
       "location": "Amsterdam, Netherlands",
       "date_label": "May 31, 2027 \u2013 Jun 4, 2027",
-      "cfp_days_left": 67,
+      "cfp_days_left": 66,
       "cfp_state": "open",
       "id": "eefac07abe5e79b4"
     },
