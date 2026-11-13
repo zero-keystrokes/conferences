@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-12 03:16",
-  "window_start": "2026-11-12",
-  "window_end": "2027-02-12",
+  "generated_at": "2026-11-13 03:15",
+  "window_start": "2026-11-13",
+  "window_end": "2027-02-13",
   "count": 28,
   "warnings": [],
   "events": [
@@ -37,37 +37,6 @@
       "id": "da59e37e4c7ddd1b"
     },
     {
-      "name": "Senior Data Engineer System Design, Live",
-      "url": "https://www.meetup.com/stackle-your-career-lab/events/317250759/",
-      "start": "2026-11-13",
-      "end": null,
-      "city": "",
-      "country": "",
-      "online": true,
-      "kind": "meetup",
-      "source": "meetup",
-      "source_url": "https://www.meetup.com/find/",
-      "cfp_url": "",
-      "cfp_close": null,
-      "cfp_open": null,
-      "cfp_note": "",
-      "description": "",
-      "tags": [
-        "Data Engineering"
-      ],
-      "score": 10.0,
-      "matched": [
-        "data engineer"
-      ],
-      "verified": false,
-      "anchor": false,
-      "location": "Online",
-      "date_label": "Nov 13, 2026",
-      "cfp_days_left": null,
-      "cfp_state": "unknown",
-      "id": "738cd5f95268562d"
-    },
-    {
       "name": "Budapest BI & Analytics Forum 2026",
       "url": "https://budapestbi.hu",
       "start": "2026-11-16",
@@ -94,7 +63,7 @@
       "anchor": false,
       "location": "Budapest, Hungary",
       "date_label": "Nov 16\u201318, 2026",
-      "cfp_days_left": -193,
+      "cfp_days_left": -194,
       "cfp_state": "closed",
       "id": "d701a608fe6c73b5"
     },
@@ -279,9 +248,40 @@
       "anchor": false,
       "location": "Vilnius, Lithuania",
       "date_label": "Nov 24\u201327, 2026",
-      "cfp_days_left": 11,
+      "cfp_days_left": 10,
       "cfp_state": "closing-soon",
       "id": "5c70286b9661b7ea"
+    },
+    {
+      "name": "Senior Data Engineer System Design, Live",
+      "url": "https://www.meetup.com/stackle-your-career-lab/events/317250759/",
+      "start": "2026-11-27",
+      "end": null,
+      "city": "",
+      "country": "",
+      "online": true,
+      "kind": "meetup",
+      "source": "meetup",
+      "source_url": "https://www.meetup.com/find/",
+      "cfp_url": "",
+      "cfp_close": null,
+      "cfp_open": null,
+      "cfp_note": "",
+      "description": "",
+      "tags": [
+        "Data Engineering"
+      ],
+      "score": 10.0,
+      "matched": [
+        "data engineer"
+      ],
+      "verified": false,
+      "anchor": false,
+      "location": "Online",
+      "date_label": "Nov 27, 2026",
+      "cfp_days_left": null,
+      "cfp_state": "unknown",
+      "id": "738cd5f95268562d"
     },
     {
       "name": "Entrepreneurs, Innovators and Everybody, Spark Your Creative Genius Poetically!",
@@ -370,7 +370,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 1, 2026",
-      "cfp_days_left": 49,
+      "cfp_days_left": 48,
       "cfp_state": "open",
       "id": "6345b6b291f66e55"
     },
@@ -401,7 +401,7 @@
       "anchor": false,
       "location": "Houston, TX, USA",
       "date_label": "Dec 4\u20135, 2026",
-      "cfp_days_left": -39,
+      "cfp_days_left": -40,
       "cfp_state": "closed",
       "id": "34d62335456f7920"
     },
@@ -497,7 +497,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 11\u201312, 2026",
-      "cfp_days_left": -12,
+      "cfp_days_left": -13,
       "cfp_state": "closed",
       "id": "87701bd88e37cb15"
     },
@@ -557,7 +557,7 @@
       "anchor": false,
       "location": "Redwood Shores, CA, USA",
       "date_label": "Apr 13\u201315, 2027",
-      "cfp_days_left": -5,
+      "cfp_days_left": -6,
       "cfp_state": "closed",
       "id": "4089336412fcd149"
     },
@@ -617,7 +617,7 @@
       "anchor": false,
       "location": "Amsterdam, Netherlands",
       "date_label": "May 31, 2027 \u2013 Jun 4, 2027",
-      "cfp_days_left": 66,
+      "cfp_days_left": 65,
       "cfp_state": "open",
       "id": "eefac07abe5e79b4"
     },
@@ -838,7 +838,7 @@
       "cfp_url": "",
       "cfp_close": null,
       "cfp_open": null,
-      "cfp_note": "Next edition's dates were not published on the page at build time \u2014 check back. Snowflake announces the agenda and any speaker call separately.",
+      "cfp_note": "Next edition's dates were not published on the page at build time \u2014 check back. Snowflake announces the agenda and any speaker call separately. \u00b7 [fetch failed: HTTP 403]",
       "description": "Snowflake's annual data cloud conference.",
       "tags": [
         "flagship"
