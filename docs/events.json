@@ -1,69 +1,41 @@
 {
-  "generated_at": "2026-11-16 03:15",
-  "window_start": "2026-11-16",
-  "window_end": "2027-02-16",
+  "generated_at": "2026-11-17 03:15",
+  "window_start": "2026-11-17",
+  "window_end": "2027-02-17",
   "count": 28,
   "warnings": [],
   "events": [
     {
-      "name": "Budapest BI & Analytics Forum 2026",
-      "url": "https://budapestbi.hu",
-      "start": "2026-11-16",
-      "end": "2026-11-18",
-      "city": "Budapest",
-      "country": "Hungary",
-      "online": false,
+      "name": "DuckDB \u00d7 MySQL Day",
+      "url": "https://oursqlfoundation.org/events/duckdb-mysql-day",
+      "start": "2026-11-17",
+      "end": "2026-11-17",
+      "city": "",
+      "country": "",
+      "online": true,
       "kind": "conference",
-      "source": "developers.events",
-      "source_url": "https://developers.events/",
-      "cfp_url": "https://sessionize.com/budapestbi26",
-      "cfp_close": "2026-05-03",
+      "source": "conference-data",
+      "source_url": "https://github.com/tech-conferences/conference-data",
+      "cfp_url": "",
+      "cfp_close": null,
       "cfp_open": null,
       "cfp_note": "",
       "description": "",
       "tags": [
-        "Analytics & Warehousing"
+        "Lakehouse & Table Formats",
+        "opensource"
       ],
       "score": 6.0,
       "matched": [
-        "analytics"
+        "duckdb"
       ],
       "verified": false,
       "anchor": false,
-      "location": "Budapest, Hungary",
-      "date_label": "Nov 16\u201318, 2026",
-      "cfp_days_left": -197,
-      "cfp_state": "closed",
-      "id": "d701a608fe6c73b5"
-    },
-    {
-      "name": "QCon \u2014 qconferences series",
-      "url": "https://qconferences.com/",
-      "start": "2026-11-16",
-      "end": "2026-11-20",
-      "city": "",
-      "country": "",
-      "online": false,
-      "kind": "conference",
-      "source": "curated",
-      "source_url": "https://qconferences.com/",
-      "cfp_url": "",
-      "cfp_close": null,
-      "cfp_open": null,
-      "cfp_note": "Practitioner conference with consistently strong data/streaming architecture tracks. Each edition runs its own call for speakers, typically ~4 months ahead.",
-      "description": "Software architecture conference series with heavy data-engineering content.",
-      "tags": [
-        "flagship"
-      ],
-      "score": 0,
-      "matched": [],
-      "verified": true,
-      "anchor": true,
-      "location": "Location TBA",
-      "date_label": "Nov 16\u201320, 2026",
+      "location": "Online",
+      "date_label": "Nov 17, 2026",
       "cfp_days_left": null,
       "cfp_state": "unknown",
-      "id": "6a68720afdafebc5"
+      "id": "9e9e57db9f2ca80f"
     },
     {
       "name": "Community Over Code 2026 (Apache Software Foundation)",
@@ -217,7 +189,7 @@
       "anchor": false,
       "location": "Vilnius, Lithuania",
       "date_label": "Nov 24\u201327, 2026",
-      "cfp_days_left": 7,
+      "cfp_days_left": 6,
       "cfp_state": "closing-soon",
       "id": "5c70286b9661b7ea"
     },
@@ -370,7 +342,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 1, 2026",
-      "cfp_days_left": 45,
+      "cfp_days_left": 44,
       "cfp_state": "open",
       "id": "6345b6b291f66e55"
     },
@@ -401,7 +373,7 @@
       "anchor": false,
       "location": "Houston, TX, USA",
       "date_label": "Dec 4\u20135, 2026",
-      "cfp_days_left": -43,
+      "cfp_days_left": -44,
       "cfp_state": "closed",
       "id": "34d62335456f7920"
     },
@@ -497,9 +469,38 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 11\u201312, 2026",
-      "cfp_days_left": -16,
+      "cfp_days_left": -17,
       "cfp_state": "closed",
       "id": "87701bd88e37cb15"
+    },
+    {
+      "name": "QCon \u2014 qconferences series",
+      "url": "https://qconferences.com/",
+      "start": "2026-12-15",
+      "end": "2026-12-16",
+      "city": "",
+      "country": "",
+      "online": false,
+      "kind": "conference",
+      "source": "curated",
+      "source_url": "https://qconferences.com/",
+      "cfp_url": "",
+      "cfp_close": null,
+      "cfp_open": null,
+      "cfp_note": "Practitioner conference with consistently strong data/streaming architecture tracks. Each edition runs its own call for speakers, typically ~4 months ahead.",
+      "description": "Software architecture conference series with heavy data-engineering content.",
+      "tags": [
+        "flagship"
+      ],
+      "score": 0,
+      "matched": [],
+      "verified": true,
+      "anchor": true,
+      "location": "Location TBA",
+      "date_label": "Dec 15\u201316, 2026",
+      "cfp_days_left": null,
+      "cfp_state": "unknown",
+      "id": "307b4793ab9b1de6"
     },
     {
       "name": "Data Council 2027",
@@ -557,7 +558,7 @@
       "anchor": false,
       "location": "Redwood Shores, CA, USA",
       "date_label": "Apr 13\u201315, 2027",
-      "cfp_days_left": -9,
+      "cfp_days_left": -10,
       "cfp_state": "closed",
       "id": "4089336412fcd149"
     },
@@ -617,7 +618,7 @@
       "anchor": false,
       "location": "Amsterdam, Netherlands",
       "date_label": "May 31, 2027 \u2013 Jun 4, 2027",
-      "cfp_days_left": 62,
+      "cfp_days_left": 61,
       "cfp_state": "open",
       "id": "eefac07abe5e79b4"
     },
@@ -838,7 +839,7 @@
       "cfp_url": "",
       "cfp_close": null,
       "cfp_open": null,
-      "cfp_note": "Next edition's dates were not published on the page at build time \u2014 check back. Snowflake announces the agenda and any speaker call separately.",
+      "cfp_note": "Next edition's dates were not published on the page at build time \u2014 check back. Snowflake announces the agenda and any speaker call separately. \u00b7 [fetch failed: HTTP 403]",
       "description": "Snowflake's annual data cloud conference.",
       "tags": [
         "flagship"
