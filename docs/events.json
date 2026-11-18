@@ -1,42 +1,10 @@
 {
-  "generated_at": "2026-11-17 03:15",
-  "window_start": "2026-11-17",
-  "window_end": "2027-02-17",
-  "count": 28,
+  "generated_at": "2026-11-18 03:15",
+  "window_start": "2026-11-18",
+  "window_end": "2027-02-18",
+  "count": 26,
   "warnings": [],
   "events": [
-    {
-      "name": "DuckDB \u00d7 MySQL Day",
-      "url": "https://oursqlfoundation.org/events/duckdb-mysql-day",
-      "start": "2026-11-17",
-      "end": "2026-11-17",
-      "city": "",
-      "country": "",
-      "online": true,
-      "kind": "conference",
-      "source": "conference-data",
-      "source_url": "https://github.com/tech-conferences/conference-data",
-      "cfp_url": "",
-      "cfp_close": null,
-      "cfp_open": null,
-      "cfp_note": "",
-      "description": "",
-      "tags": [
-        "Lakehouse & Table Formats",
-        "opensource"
-      ],
-      "score": 6.0,
-      "matched": [
-        "duckdb"
-      ],
-      "verified": false,
-      "anchor": false,
-      "location": "Online",
-      "date_label": "Nov 17, 2026",
-      "cfp_days_left": null,
-      "cfp_state": "unknown",
-      "id": "9e9e57db9f2ca80f"
-    },
     {
       "name": "Community Over Code 2026 (Apache Software Foundation)",
       "url": "https://communityovercode.org/",
@@ -98,39 +66,6 @@
       "id": "53d91a4680c97481"
     },
     {
-      "name": "San Francisco Data Engineering Meetup with ClickHouse",
-      "url": "https://www.meetup.com/clickhouse-silicon-valley-meetup-group/events/316900320/",
-      "start": "2026-11-18",
-      "end": null,
-      "city": "San Francisco",
-      "country": "USA",
-      "online": false,
-      "kind": "meetup",
-      "source": "meetup",
-      "source_url": "https://www.meetup.com/find/",
-      "cfp_url": "",
-      "cfp_close": null,
-      "cfp_open": null,
-      "cfp_note": "",
-      "description": "",
-      "tags": [
-        "Data Engineering",
-        "Analytics & Warehousing"
-      ],
-      "score": 18.0,
-      "matched": [
-        "data engineering",
-        "clickhouse"
-      ],
-      "verified": false,
-      "anchor": false,
-      "location": "San Francisco, USA",
-      "date_label": "Nov 18, 2026",
-      "cfp_days_left": null,
-      "cfp_state": "unknown",
-      "id": "b3b927a69c3c6600"
-    },
-    {
       "name": "From Analyst to Data Engineer With AI",
       "url": "https://www.meetup.com/stackle-your-career-lab/events/317250807/",
       "start": "2026-11-20",
@@ -189,7 +124,7 @@
       "anchor": false,
       "location": "Vilnius, Lithuania",
       "date_label": "Nov 24\u201327, 2026",
-      "cfp_days_left": 6,
+      "cfp_days_left": 5,
       "cfp_state": "closing-soon",
       "id": "5c70286b9661b7ea"
     },
@@ -342,7 +277,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 1, 2026",
-      "cfp_days_left": 44,
+      "cfp_days_left": 43,
       "cfp_state": "open",
       "id": "6345b6b291f66e55"
     },
@@ -373,7 +308,7 @@
       "anchor": false,
       "location": "Houston, TX, USA",
       "date_label": "Dec 4\u20135, 2026",
-      "cfp_days_left": -44,
+      "cfp_days_left": -45,
       "cfp_state": "closed",
       "id": "34d62335456f7920"
     },
@@ -469,7 +404,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 11\u201312, 2026",
-      "cfp_days_left": -17,
+      "cfp_days_left": -18,
       "cfp_state": "closed",
       "id": "87701bd88e37cb15"
     },
@@ -558,7 +493,7 @@
       "anchor": false,
       "location": "Redwood Shores, CA, USA",
       "date_label": "Apr 13\u201315, 2027",
-      "cfp_days_left": -10,
+      "cfp_days_left": -11,
       "cfp_state": "closed",
       "id": "4089336412fcd149"
     },
@@ -618,7 +553,7 @@
       "anchor": false,
       "location": "Amsterdam, Netherlands",
       "date_label": "May 31, 2027 \u2013 Jun 4, 2027",
-      "cfp_days_left": 61,
+      "cfp_days_left": 60,
       "cfp_state": "open",
       "id": "eefac07abe5e79b4"
     },
