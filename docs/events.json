@@ -1,41 +1,10 @@
 {
-  "generated_at": "2026-11-19 03:15",
-  "window_start": "2026-11-19",
-  "window_end": "2027-02-19",
-  "count": 25,
+  "generated_at": "2026-11-20 03:15",
+  "window_start": "2026-11-20",
+  "window_end": "2027-02-20",
+  "count": 24,
   "warnings": [],
   "events": [
-    {
-      "name": "From Analyst to Data Engineer With AI",
-      "url": "https://www.meetup.com/stackle-your-career-lab/events/317250807/",
-      "start": "2026-11-20",
-      "end": null,
-      "city": "",
-      "country": "",
-      "online": true,
-      "kind": "meetup",
-      "source": "meetup",
-      "source_url": "https://www.meetup.com/find/",
-      "cfp_url": "",
-      "cfp_close": null,
-      "cfp_open": null,
-      "cfp_note": "",
-      "description": "",
-      "tags": [
-        "Data Engineering"
-      ],
-      "score": 10.0,
-      "matched": [
-        "data engineer"
-      ],
-      "verified": false,
-      "anchor": false,
-      "location": "Online",
-      "date_label": "Nov 20, 2026",
-      "cfp_days_left": null,
-      "cfp_state": "unknown",
-      "id": "060fff03fb3dfe01"
-    },
     {
       "name": "Big Data Europe",
       "url": "https://bigdataconference.eu",
@@ -64,7 +33,7 @@
       "anchor": false,
       "location": "Vilnius, Lithuania",
       "date_label": "Nov 24\u201327, 2026",
-      "cfp_days_left": 4,
+      "cfp_days_left": 3,
       "cfp_state": "closing-soon",
       "id": "5c70286b9661b7ea"
     },
@@ -217,7 +186,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 1, 2026",
-      "cfp_days_left": 42,
+      "cfp_days_left": 41,
       "cfp_state": "open",
       "id": "6345b6b291f66e55"
     },
@@ -248,7 +217,7 @@
       "anchor": false,
       "location": "Houston, TX, USA",
       "date_label": "Dec 4\u20135, 2026",
-      "cfp_days_left": -46,
+      "cfp_days_left": -47,
       "cfp_state": "closed",
       "id": "34d62335456f7920"
     },
@@ -344,7 +313,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 11\u201312, 2026",
-      "cfp_days_left": -19,
+      "cfp_days_left": -20,
       "cfp_state": "closed",
       "id": "87701bd88e37cb15"
     },
@@ -433,7 +402,7 @@
       "anchor": false,
       "location": "Redwood Shores, CA, USA",
       "date_label": "Apr 13\u201315, 2027",
-      "cfp_days_left": -12,
+      "cfp_days_left": -13,
       "cfp_state": "closed",
       "id": "4089336412fcd149"
     },
@@ -493,7 +462,7 @@
       "anchor": false,
       "location": "Amsterdam, Netherlands",
       "date_label": "May 31, 2027 \u2013 Jun 4, 2027",
-      "cfp_days_left": 59,
+      "cfp_days_left": 58,
       "cfp_state": "open",
       "id": "eefac07abe5e79b4"
     },
