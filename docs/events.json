@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-11-21 03:15",
-  "window_start": "2026-11-21",
-  "window_end": "2027-02-21",
-  "count": 24,
+  "generated_at": "2026-11-22 03:16",
+  "window_start": "2026-11-22",
+  "window_end": "2027-02-22",
+  "count": 25,
   "warnings": [],
   "events": [
     {
@@ -33,7 +33,7 @@
       "anchor": false,
       "location": "Vilnius, Lithuania",
       "date_label": "Nov 24\u201327, 2026",
-      "cfp_days_left": 2,
+      "cfp_days_left": 1,
       "cfp_state": "closing-soon",
       "id": "5c70286b9661b7ea"
     },
@@ -186,7 +186,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 1, 2026",
-      "cfp_days_left": 40,
+      "cfp_days_left": 39,
       "cfp_state": "open",
       "id": "6345b6b291f66e55"
     },
@@ -217,7 +217,7 @@
       "anchor": false,
       "location": "Houston, TX, USA",
       "date_label": "Dec 4\u20135, 2026",
-      "cfp_days_left": -48,
+      "cfp_days_left": -49,
       "cfp_state": "closed",
       "id": "34d62335456f7920"
     },
@@ -313,9 +313,40 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 11\u201312, 2026",
-      "cfp_days_left": -21,
+      "cfp_days_left": -22,
       "cfp_state": "closed",
       "id": "87701bd88e37cb15"
+    },
+    {
+      "name": "Building Reliable Data Pipelines with AI Agents",
+      "url": "https://www.meetup.com/datatalks-meetups-global/events/317528615/",
+      "start": "2026-12-14",
+      "end": null,
+      "city": "",
+      "country": "",
+      "online": true,
+      "kind": "meetup",
+      "source": "meetup",
+      "source_url": "https://www.meetup.com/find/",
+      "cfp_url": "",
+      "cfp_close": null,
+      "cfp_open": null,
+      "cfp_note": "",
+      "description": "",
+      "tags": [
+        "Data Engineering"
+      ],
+      "score": 8.0,
+      "matched": [
+        "data pipeline"
+      ],
+      "verified": false,
+      "anchor": false,
+      "location": "Online",
+      "date_label": "Dec 14, 2026",
+      "cfp_days_left": null,
+      "cfp_state": "unknown",
+      "id": "24253917f42aa8bb"
     },
     {
       "name": "QCon \u2014 qconferences series",
@@ -402,7 +433,7 @@
       "anchor": false,
       "location": "Redwood Shores, CA, USA",
       "date_label": "Apr 13\u201315, 2027",
-      "cfp_days_left": -14,
+      "cfp_days_left": -15,
       "cfp_state": "closed",
       "id": "4089336412fcd149"
     },
@@ -462,7 +493,7 @@
       "anchor": false,
       "location": "Amsterdam, Netherlands",
       "date_label": "May 31, 2027 \u2013 Jun 4, 2027",
-      "cfp_days_left": 57,
+      "cfp_days_left": 56,
       "cfp_state": "open",
       "id": "eefac07abe5e79b4"
     },
@@ -712,7 +743,7 @@
       "cfp_url": "",
       "cfp_close": null,
       "cfp_open": null,
-      "cfp_note": "Next edition's dates were not published on the page at build time \u2014 check back. Snowflake announces the agenda and any speaker call separately. \u00b7 [fetch failed: HTTP 403]",
+      "cfp_note": "Next edition's dates were not published on the page at build time \u2014 check back. Snowflake announces the agenda and any speaker call separately.",
       "description": "Snowflake's annual data cloud conference.",
       "tags": [
         "flagship"
