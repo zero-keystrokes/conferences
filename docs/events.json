@@ -1,42 +1,10 @@
 {
-  "generated_at": "2026-11-24 03:16",
-  "window_start": "2026-11-24",
-  "window_end": "2027-02-24",
+  "generated_at": "2026-11-25 03:16",
+  "window_start": "2026-11-25",
+  "window_end": "2027-02-25",
   "count": 25,
   "warnings": [],
   "events": [
-    {
-      "name": "Big Data Europe",
-      "url": "https://bigdataconference.eu",
-      "start": "2026-11-24",
-      "end": "2026-11-27",
-      "city": "Vilnius",
-      "country": "Lithuania",
-      "online": false,
-      "kind": "conference",
-      "source": "conference-data + developers.events",
-      "source_url": "https://developers.events/",
-      "cfp_url": "https://airtable.com/appsUlpNtLMccgwFZ/pagviP3ooRV63PCWO/form",
-      "cfp_close": "2026-11-23",
-      "cfp_open": null,
-      "cfp_note": "",
-      "description": "",
-      "tags": [
-        "Data Engineering",
-        "data"
-      ],
-      "score": 8.0,
-      "matched": [
-        "big data"
-      ],
-      "verified": false,
-      "anchor": false,
-      "location": "Vilnius, Lithuania",
-      "date_label": "Nov 24\u201327, 2026",
-      "cfp_days_left": -1,
-      "cfp_state": "closed",
-      "id": "5c70286b9661b7ea"
-    },
     {
       "name": "Entrepreneurs, Innovators and Everybody, Spark Your Creative Genius Poetically!",
       "url": "https://www.meetup.com/svsei-org/events/317351538/",
@@ -188,7 +156,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 1, 2026",
-      "cfp_days_left": 37,
+      "cfp_days_left": 36,
       "cfp_state": "open",
       "id": "6345b6b291f66e55"
     },
@@ -219,7 +187,7 @@
       "anchor": false,
       "location": "Houston, TX, USA",
       "date_label": "Dec 4\u20135, 2026",
-      "cfp_days_left": -51,
+      "cfp_days_left": -52,
       "cfp_state": "closed",
       "id": "34d62335456f7920"
     },
@@ -315,7 +283,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 11\u201312, 2026",
-      "cfp_days_left": -24,
+      "cfp_days_left": -25,
       "cfp_state": "closed",
       "id": "87701bd88e37cb15"
     },
@@ -380,6 +348,38 @@
       "id": "307b4793ab9b1de6"
     },
     {
+      "name": "Paper Snowflake Check-In!",
+      "url": "https://www.meetup.com/san-francisco-neurodivergence-women-s-group/events/317569495/",
+      "start": "2026-12-20",
+      "end": null,
+      "city": "San Francisco",
+      "country": "USA",
+      "online": false,
+      "kind": "meetup",
+      "source": "meetup",
+      "source_url": "https://www.meetup.com/find/",
+      "cfp_url": "",
+      "cfp_close": null,
+      "cfp_open": null,
+      "cfp_note": "",
+      "description": "",
+      "tags": [
+        "Data Engineering",
+        "Analytics & Warehousing"
+      ],
+      "score": 16.0,
+      "matched": [
+        "snowflake"
+      ],
+      "verified": false,
+      "anchor": false,
+      "location": "San Francisco, USA",
+      "date_label": "Dec 20, 2026",
+      "cfp_days_left": null,
+      "cfp_state": "unknown",
+      "id": "85226f28eb77ab1e"
+    },
+    {
       "name": "Data Council 2027",
       "url": "https://www.datacouncil.ai/",
       "start": "2027-03-23",
@@ -435,7 +435,7 @@
       "anchor": false,
       "location": "Redwood Shores, CA, USA",
       "date_label": "Apr 13\u201315, 2027",
-      "cfp_days_left": -17,
+      "cfp_days_left": -18,
       "cfp_state": "closed",
       "id": "4089336412fcd149"
     },
@@ -495,7 +495,7 @@
       "anchor": false,
       "location": "Amsterdam, Netherlands",
       "date_label": "May 31, 2027 \u2013 Jun 4, 2027",
-      "cfp_days_left": 54,
+      "cfp_days_left": 53,
       "cfp_state": "open",
       "id": "eefac07abe5e79b4"
     },
