@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-26 03:16",
-  "window_start": "2026-11-26",
-  "window_end": "2027-02-26",
+  "generated_at": "2026-11-27 03:16",
+  "window_start": "2026-11-27",
+  "window_end": "2027-02-27",
   "count": 25,
   "warnings": [],
   "events": [
@@ -156,7 +156,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 1, 2026",
-      "cfp_days_left": 35,
+      "cfp_days_left": 34,
       "cfp_state": "open",
       "id": "6345b6b291f66e55"
     },
@@ -187,7 +187,7 @@
       "anchor": false,
       "location": "Houston, TX, USA",
       "date_label": "Dec 4\u20135, 2026",
-      "cfp_days_left": -53,
+      "cfp_days_left": -54,
       "cfp_state": "closed",
       "id": "34d62335456f7920"
     },
@@ -283,7 +283,7 @@
       "anchor": false,
       "location": "Online",
       "date_label": "Dec 11\u201312, 2026",
-      "cfp_days_left": -26,
+      "cfp_days_left": -27,
       "cfp_state": "closed",
       "id": "87701bd88e37cb15"
     },
@@ -435,7 +435,7 @@
       "anchor": false,
       "location": "Redwood Shores, CA, USA",
       "date_label": "Apr 13\u201315, 2027",
-      "cfp_days_left": -19,
+      "cfp_days_left": -20,
       "cfp_state": "closed",
       "id": "4089336412fcd149"
     },
@@ -495,7 +495,7 @@
       "anchor": false,
       "location": "Amsterdam, Netherlands",
       "date_label": "May 31, 2027 \u2013 Jun 4, 2027",
-      "cfp_days_left": 52,
+      "cfp_days_left": 51,
       "cfp_state": "open",
       "id": "eefac07abe5e79b4"
     },
@@ -745,7 +745,7 @@
       "cfp_url": "",
       "cfp_close": null,
       "cfp_open": null,
-      "cfp_note": "Next edition's dates were not published on the page at build time \u2014 check back. Snowflake announces the agenda and any speaker call separately.",
+      "cfp_note": "Next edition's dates were not published on the page at build time \u2014 check back. Snowflake announces the agenda and any speaker call separately. \u00b7 [fetch failed: HTTP 403]",
       "description": "Snowflake's annual data cloud conference.",
       "tags": [
         "flagship"
